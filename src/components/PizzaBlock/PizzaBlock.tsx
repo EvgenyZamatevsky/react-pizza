@@ -1,32 +1,46 @@
-import React, { FC } from 'react'
-import { ReturnComponentType } from 'types'
+import React, { FC, memo, useState } from 'react'
+import { pizzasType, ReturnComponentType } from 'types'
 
 export type PizzaBlockPropsType = {
-
+	pizza: pizzasType
 }
 
-export const PizzaBlock: FC<PizzaBlockPropsType> = (): ReturnComponentType => {
+export const PizzaBlock: FC<PizzaBlockPropsType> = memo(({ pizza }): ReturnComponentType => {
+
+	const { category, id, imageUrl, price, rating, sizes, title, types } = pizza
+
+	const [currentSize, setCurrentSize] = useState(0)
+	const [currentType, setCurrentType] = useState(0)
+
+	const typeNames = ['тонкое', 'традиционное']
+
+	const renderPizzaSizes = sizes.map((size, index) => {
+
+		const onSelectCurrentSizeClick = (): void => setCurrentSize(index)
+
+		return (
+			<li key={index} className={currentSize === index ? 'active' : ''} onClick={onSelectCurrentSizeClick}>{size} см.</li>
+		)
+	})
+	const renderPizzaTypes = types.map((type, index) => {
+
+		const onSelectCurrentTypeClick = (): void => setCurrentType(index)
+
+		return (
+			<li key={index} className={currentType === index ? 'active' : ''} onClick={onSelectCurrentTypeClick}>{typeNames[type]}</li>
+		)
+	})
+
 	return (
 		<div className='pizza-block'>
-			<img
-				className='pizza-block__image'
-				src='https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg'
-				alt='Pizza'
-			/>
-			<h4 className='pizza-block__title'>Чизбургер-пицца</h4>
+			<img className='pizza-block__image' src={imageUrl} alt='Pizza' />
+			<h4 className='pizza-block__title'>{title}</h4>
 			<div className='pizza-block__selector'>
-				<ul>
-					<li className='active'>тонкое</li>
-					<li>традиционное</li>
-				</ul>
-				<ul>
-					<li className='active'>26 см.</li>
-					<li>30 см.</li>
-					<li>40 см.</li>
-				</ul>
+				<ul>{renderPizzaTypes}</ul>
+				<ul>{renderPizzaSizes}</ul>
 			</div>
 			<div className='pizza-block__bottom'>
-				<div className='pizza-block__price'>от 395 ₽</div>
+				<div className='pizza-block__price'>от {price} ₽</div>
 				<button className='button button--outline button--add'>
 					<svg
 						width='12'
@@ -46,4 +60,4 @@ export const PizzaBlock: FC<PizzaBlockPropsType> = (): ReturnComponentType => {
 			</div>
 		</div>
 	)
-}
+})

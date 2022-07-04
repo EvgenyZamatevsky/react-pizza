@@ -15,9 +15,7 @@ export const Categories: FC<CategoriesPropsType> = (): ReturnComponentType => {
 
 	const renderCategories = categories.map((category, index) => {
 
-		const onSelectCurrentCategoryClick = () => {
-			setCurrentCategory(category)
-		}
+		const onSelectCurrentCategoryClick = (): void => setCurrentCategory(category)
 
 		return (
 			<li key={index} className={currentCategory === category ? 'active' : ''} onClick={onSelectCurrentCategoryClick}>{category}</li>
