@@ -1,14 +1,36 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import { ReturnComponentType } from 'types'
+
+export type SortValuesType = 'популярности' | 'цене' | 'алфавиту'
 
 export type SortPropsType = {
 
 }
 
 export const Sort: FC<SortPropsType> = (): ReturnComponentType => {
+
+	const [isVisiblePopup, setIsVisiblePopup] = useState<boolean>(false)
+	const [currentSortValue, setCurrentSortValue] = useState<SortValuesType>('популярности')
+
+	const sortValues: SortValuesType[] = ['популярности', 'цене', 'алфавиту']
+
+	const renderSortValues = sortValues.map((sortValue, index) => {
+
+		const onSelectSortValueClick = (): void => {
+			setCurrentSortValue(sortValue)
+			setIsVisiblePopup(false)
+		}
+
+		return <li key={index} className={currentSortValue === sortValue ? 'active' : ''} onClick={onSelectSortValueClick}>{sortValue}</li>
+	})
+
+	const onToggleActiveSortClick = (): void => {
+		setIsVisiblePopup(!isVisiblePopup)
+	}
+
 	return (
 		<div className='sort'>
-			<div className='sort__label'>
+			<div className='sort__label' >
 				<svg
 					width='10'
 					height='6'
@@ -22,15 +44,12 @@ export const Sort: FC<SortPropsType> = (): ReturnComponentType => {
 					/>
 				</svg>
 				<b>Сортировка по:</b>
-				<span>популярности</span>
+				<span onClick={onToggleActiveSortClick}>{currentSortValue}</span>
 			</div>
-			<div className='sort__popup'>
-				<ul>
-					<li className='active'>популярности</li>
-					<li>цене</li>
-					<li>алфавиту</li>
-				</ul>
-			</div>
+			{isVisiblePopup &&
+				<div className='sort__popup'>
+					<ul>{renderSortValues}</ul>
+				</div>}
 		</div>
 	)
 }

@@ -18,9 +18,7 @@ export const PizzaBlock: FC<PizzaBlockPropsType> = memo(({ pizza }): ReturnCompo
 
 		const onSelectCurrentSizeClick = (): void => setCurrentSize(index)
 
-		return (
-			<li key={index} className={currentSize === index ? 'active' : ''} onClick={onSelectCurrentSizeClick}>{size} см.</li>
-		)
+		return <li key={index} className={currentSize === index ? 'active' : ''} onClick={onSelectCurrentSizeClick}>{size} см.</li>
 	})
 	const renderPizzaTypes = types.map((type, index) => {
 
