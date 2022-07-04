@@ -1,12 +1,24 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { Header, Sort, Categories, PizzaBlock } from 'components'
 import { ReturnComponentType } from 'types'
-import pizzas from 'assets/pizzas.json'
+import { useTypedDispatch } from 'hooks'
+import { getPizzasTC } from 'store/pizzasReducer/thunks'
+import { useSelector } from 'react-redux'
+import { selectPizzas } from 'store/pizzasReducer/selectors'
 import 'scss/app.scss'
 
 export const App: FC = (): ReturnComponentType => {
 
-  const renderPizzas = pizzas.map((pizza) => <PizzaBlock key={pizza.id} pizza={pizza} />)
+  const dispatch = useTypedDispatch()
+  const pizzas = useSelector(selectPizzas)
+
+  const renderPizzas = pizzas.map(pizza => {
+    return <PizzaBlock key={pizza.id} pizza={pizza} />
+  })
+
+  useEffect(() => {
+    dispatch(getPizzasTC())
+  }, [])
 
   return (
     <div className='wrapper'>

@@ -1,8 +1,10 @@
+import { PizzasType } from 'api/pizzas/types'
+import { Skeleton } from 'components/Skeleton/Skeleton'
 import React, { FC, memo, useState } from 'react'
-import { pizzasType, ReturnComponentType } from 'types'
+import { ReturnComponentType } from 'types'
 
 export type PizzaBlockPropsType = {
-	pizza: pizzasType
+	pizza: PizzasType
 }
 
 export const PizzaBlock: FC<PizzaBlockPropsType> = memo(({ pizza }): ReturnComponentType => {
@@ -28,6 +30,10 @@ export const PizzaBlock: FC<PizzaBlockPropsType> = memo(({ pizza }): ReturnCompo
 			<li key={index} className={currentType === index ? 'active' : ''} onClick={onSelectCurrentTypeClick}>{typeNames[type]}</li>
 		)
 	})
+
+	// if (!pizza) {
+	// 	return <Skeleton />
+	// }
 
 	return (
 		<div className='pizza-block'>
