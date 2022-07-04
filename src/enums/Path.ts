@@ -1,4 +1,5 @@
 export enum Path {
 	home = '/',
-	notFound = '*'
+	notFound = '*',
+	cart = '/cart'
 }

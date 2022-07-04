@@ -21,12 +21,15 @@ export const Sort: FC<SortPropsType> = (): ReturnComponentType => {
 			setIsVisiblePopup(false)
 		}
 
-		return <li key={index} className={currentSortValue === sortValue ? 'active' : ''} onClick={onSelectSortValueClick}>{sortValue}</li>
+		return <li
+			key={index}
+			className={currentSortValue === sortValue ? 'active' : ''}
+			onClick={onSelectSortValueClick}>
+			{sortValue}
+		</li>
 	})
 
-	const onToggleActiveSortClick = (): void => {
-		setIsVisiblePopup(!isVisiblePopup)
-	}
+	const onToggleActiveSortClick = (): void => setIsVisiblePopup(!isVisiblePopup)
 
 	return (
 		<div className='sort'>

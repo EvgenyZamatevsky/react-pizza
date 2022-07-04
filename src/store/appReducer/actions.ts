@@ -1,1 +1,1 @@
-export const AC = () => ({ type: 'app/' } as const)
+export const setIsLoadingAC = (isLoading: boolean) => ({ type: 'app/SET-IS-LOADING', isLoading } as const)

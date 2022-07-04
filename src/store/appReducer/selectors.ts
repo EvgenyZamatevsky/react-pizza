@@ -1,3 +1,3 @@
 import { RootReducerType } from 'store/store'
 
-export const select = (state: RootReducerType) => state.app
+export const selectIsLoading = (state: RootReducerType): boolean => state.app.isLoading
