@@ -3,6 +3,7 @@ import { ReturnComponentType } from 'types'
 import pizzaLogo from 'assets/img/pizza-logo.svg'
 import { Link } from 'react-router-dom'
 import { Path } from 'enums'
+import { Search } from 'components/Search'
 
 export const Header: FC = (): ReturnComponentType => {
 	return (
@@ -17,6 +18,7 @@ export const Header: FC = (): ReturnComponentType => {
 						</div>
 					</div>
 				</Link>
+				<Search />
 				<div className='header__cart'>
 					<Link to={Path.cart} className='button button--cart'>
 						<span>520 ₽</span>
