@@ -1,4 +1,4 @@
-import React, { FC, memo, useEffect, useState } from 'react'
+import React, { FC, memo, useContext, useEffect, useState } from 'react'
 import { PizzaBlock, Categories, Sort, Skeleton, Pagination } from 'components'
 import { useTypedDispatch } from 'hooks'
 import { useSelector } from 'react-redux'
@@ -7,18 +7,23 @@ import { selectPizzas } from 'store/pizzasReducer/selectors'
 import { getPizzasTC } from 'store/pizzasReducer/thunks'
 import { ReturnComponentType } from 'types'
 import { useCallback } from 'react'
+import { SearchContext } from 'context'
 
 export type HomePropsType = {
-	searchValue: string
+
 }
 
 const SIX_FAKE_ITEMS = 6
 
-export const Home: FC<HomePropsType> = memo(({ searchValue }): ReturnComponentType => {
+export const Home: FC<HomePropsType> = (): ReturnComponentType => {
 
 	const dispatch = useTypedDispatch()
+
+	const { searchValue } = useContext(SearchContext)
+
 	const pizzas = useSelector(selectPizzas)
 	const isLoading = useSelector(selectIsLoading)
+
 	const [pizzaCategory, setPizzaCategory] = useState(0)
 	const [pizzaSorting, setPizzaSorting] = useState({ name: 'популярности', sortProperty: 'rating' })
 	const [currentPage, setCurrentPage] = useState(1)
@@ -59,4 +64,4 @@ export const Home: FC<HomePropsType> = memo(({ searchValue }): ReturnComponentTy
 			<Pagination currentPage={currentPage} handlePageChange={handlePageChange} />
 		</div >
 	)
-})
+}

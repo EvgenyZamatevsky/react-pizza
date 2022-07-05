@@ -1,14 +1,15 @@
 import { EMPTY_STRING } from 'constants/base'
-import React, { ChangeEvent, FC, memo } from 'react'
+import { SearchContext } from 'context'
+import React, { ChangeEvent, FC, memo, useContext } from 'react'
 import { ReturnComponentType } from 'types'
 import style from './Search.module.scss'
 
 export type SearchPropsType = {
-	searchValue: string
-	setSearchValue: (searchValue: string) => void
 }
 
-export const Search: FC<SearchPropsType> = memo(({ searchValue, setSearchValue }): ReturnComponentType => {
+export const Search: FC<SearchPropsType> = (): ReturnComponentType => {
+
+	const { searchValue, setSearchValue } = useContext(SearchContext)
 
 	const onSearchValueChange = (e: ChangeEvent<HTMLInputElement>): void => {
 		setSearchValue(e.currentTarget.value)
@@ -65,4 +66,4 @@ export const Search: FC<SearchPropsType> = memo(({ searchValue, setSearchValue }
 			}
 		</div>
 	)
-})
+}

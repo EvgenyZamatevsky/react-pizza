@@ -6,11 +6,9 @@ import { Path } from 'enums'
 import { Search } from 'components/Search'
 
 export type HeaderPropsType = {
-	searchValue: string
-	setSearchValue: (searchValue: string) => void
 }
 
-export const Header: FC<HeaderPropsType> = ({ searchValue, setSearchValue }): ReturnComponentType => {
+export const Header: FC<HeaderPropsType> = (): ReturnComponentType => {
 	return (
 		<div className='header'>
 			<div className='container'>
@@ -23,7 +21,7 @@ export const Header: FC<HeaderPropsType> = ({ searchValue, setSearchValue }): Re
 						</div>
 					</div>
 				</Link>
-				<Search searchValue={searchValue} setSearchValue={setSearchValue} />
+				<Search />
 				<div className='header__cart'>
 					<Link to={Path.cart} className='button button--cart'>
 						<span>520 ₽</span>
