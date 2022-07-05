@@ -1,5 +1,5 @@
 import React, { FC, memo, useEffect, useState } from 'react'
-import { PizzaBlock, Categories, Sort, Skeleton } from 'components'
+import { PizzaBlock, Categories, Sort, Skeleton, Pagination } from 'components'
 import { useTypedDispatch } from 'hooks'
 import { useSelector } from 'react-redux'
 import { selectIsLoading } from 'store/appReducer/selectors'
@@ -21,6 +21,7 @@ export const Home: FC<HomePropsType> = memo(({ searchValue }): ReturnComponentTy
 	const isLoading = useSelector(selectIsLoading)
 	const [pizzaCategory, setPizzaCategory] = useState(0)
 	const [pizzaSorting, setPizzaSorting] = useState({ name: 'популярности', sortProperty: 'rating' })
+	const [currentPage, setCurrentPage] = useState(1)
 
 	const fakeItems = [...new Array(SIX_FAKE_ITEMS)]
 	const renderFakeItems = fakeItems.map((_, index) => <Skeleton key={index} />)
@@ -34,12 +35,16 @@ export const Home: FC<HomePropsType> = memo(({ searchValue }): ReturnComponentTy
 		setPizzaSorting(pizzaSortingValues)
 	}, [])
 
+	const handlePageChange = useCallback((page: number): void => {
+		setCurrentPage(page)
+	}, [])
+
 	const scrollPageUp = (): void => window.scrollTo(0, 0)
 
 	useEffect(() => {
-		dispatch(getPizzasTC(pizzaCategory, pizzaSorting.sortProperty, pizzaSorting.sortProperty, searchValue))
+		dispatch(getPizzasTC(pizzaCategory, pizzaSorting.sortProperty, pizzaSorting.sortProperty, searchValue, currentPage))
 		scrollPageUp()
-	}, [pizzaCategory, pizzaSorting.sortProperty, searchValue])
+	}, [pizzaCategory, pizzaSorting.sortProperty, searchValue, currentPage])
 
 	return (
 		<div className='container'>
@@ -51,6 +56,7 @@ export const Home: FC<HomePropsType> = memo(({ searchValue }): ReturnComponentTy
 			<div className='content__items'>
 				{isLoading ? renderFakeItems : renderPizzas}
 			</div>
+			<Pagination currentPage={currentPage} handlePageChange={handlePageChange} />
 		</div >
 	)
 })
