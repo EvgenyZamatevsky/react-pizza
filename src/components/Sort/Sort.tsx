@@ -1,32 +1,39 @@
-import React, { FC, useState } from 'react'
+import React, { FC, memo, useState } from 'react'
 import { ReturnComponentType } from 'types'
 
-export type SortValuesType = 'популярности' | 'цене' | 'алфавиту'
-
 export type SortPropsType = {
-
+	pizzaSorting: { name: string, sortProperty: string }
+	handleSelectPizzaSortingClick: (sortValues: { name: string, sortProperty: string }) => void
 }
 
-export const Sort: FC<SortPropsType> = (): ReturnComponentType => {
+export const Sort: FC<SortPropsType> = memo(({ pizzaSorting, handleSelectPizzaSortingClick }): ReturnComponentType => {
 
 	const [isVisiblePopup, setIsVisiblePopup] = useState<boolean>(false)
-	const [currentSortValue, setCurrentSortValue] = useState<SortValuesType>('популярности')
 
-	const sortValues: SortValuesType[] = ['популярности', 'цене', 'алфавиту']
+	const pizzaSortingList = [
+		{ name: 'популярности (DESC)', sortProperty: 'rating' },
+		{ name: 'популярности (ASC)', sortProperty: '-rating' },
+		{ name: 'цене (DESC)', sortProperty: 'price' },
+		{ name: 'цене (ASC)', sortProperty: '-price' },
+		{ name: 'алфавиту (DESC)', sortProperty: 'title' },
+		{ name: 'алфавиту (ASC)', sortProperty: '-title' },
+	]
 
-	const renderSortValues = sortValues.map((sortValue, index) => {
+	const renderPizzaSorting = pizzaSortingList.map((pizzaSortList, index) => {
 
-		const onSelectSortValueClick = (): void => {
-			setCurrentSortValue(sortValue)
+		const onSelectPizzaSortingClick = (): void => {
+			handleSelectPizzaSortingClick(pizzaSortList)
 			setIsVisiblePopup(false)
 		}
 
-		return <li
-			key={index}
-			className={currentSortValue === sortValue ? 'active' : ''}
-			onClick={onSelectSortValueClick}>
-			{sortValue}
-		</li>
+		return (
+			<li
+				key={index}
+				className={pizzaSorting.sortProperty === pizzaSortList.sortProperty ? 'active' : ''}
+				onClick={onSelectPizzaSortingClick}>
+				{pizzaSortList.name}
+			</li>
+		)
 	})
 
 	const onToggleActiveSortClick = (): void => setIsVisiblePopup(!isVisiblePopup)
@@ -47,12 +54,12 @@ export const Sort: FC<SortPropsType> = (): ReturnComponentType => {
 					/>
 				</svg>
 				<b>Сортировка по:</b>
-				<span onClick={onToggleActiveSortClick}>{currentSortValue}</span>
+				<span onClick={onToggleActiveSortClick}>{pizzaSorting.name}</span>
 			</div>
 			{isVisiblePopup &&
 				<div className='sort__popup'>
-					<ul>{renderSortValues}</ul>
+					<ul>{renderPizzaSorting}</ul>
 				</div>}
 		</div>
 	)
-}
+})

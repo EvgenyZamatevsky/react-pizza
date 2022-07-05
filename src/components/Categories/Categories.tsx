@@ -1,28 +1,27 @@
-import React, { FC, useState } from 'react'
+import React, { FC } from 'react'
 import { ReturnComponentType } from 'types'
 
-export type CategoriesType = 'Все' | 'Мясные' | 'Вегетарианская' | 'Гриль' | 'Острые' | 'Закрытые'
-
 export type CategoriesPropsType = {
-
+	currentCategory: number
+	handleSelectCurrentCategoryClick: (index: number) => void
 }
 
-export const Categories: FC<CategoriesPropsType> = (): ReturnComponentType => {
+export const Categories: FC<CategoriesPropsType> = ({ currentCategory, handleSelectCurrentCategoryClick }): ReturnComponentType => {
 
-	const [currentCategory, setCurrentCategory] = useState<CategoriesType>('Все')
-
-	const categories: CategoriesType[] = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые']
+	const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые']
 
 	const renderCategories = categories.map((category, index) => {
 
-		const onSelectCurrentCategoryClick = (): void => setCurrentCategory(category)
+		const onSelectCurrentCategoryClick = (): void => handleSelectCurrentCategoryClick(index)
 
-		return <li
-			key={index}
-			className={currentCategory === category ? 'active' : ''}
-			onClick={onSelectCurrentCategoryClick}>
-			{category}
-		</li>
+		return (
+			<li
+				key={index}
+				className={currentCategory === index ? 'active' : ''}
+				onClick={onSelectCurrentCategoryClick}>
+				{category}
+			</li>
+		)
 	})
 
 	return (
