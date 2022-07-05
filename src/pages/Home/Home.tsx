@@ -1,13 +1,10 @@
-import React, { FC, memo, useContext, useEffect, useState } from 'react'
+import React, { FC, useContext, useEffect, useState } from 'react'
 import { PizzaBlock, Categories, Sort, Skeleton, Pagination } from 'components'
-import { useTypedDispatch } from 'hooks'
-import { useSelector } from 'react-redux'
-import { selectIsLoading } from 'store/appReducer/selectors'
-import { selectPizzas } from 'store/pizzasReducer/selectors'
-import { getPizzasTC } from 'store/pizzasReducer/thunks'
 import { ReturnComponentType } from 'types'
 import { useCallback } from 'react'
 import { SearchContext } from 'context'
+import { PizzasType } from 'api/pizzas/types'
+import { PIZZAS } from 'api/pizzas'
 
 export type HomePropsType = {
 
@@ -17,13 +14,10 @@ const SIX_FAKE_ITEMS = 6
 
 export const Home: FC<HomePropsType> = (): ReturnComponentType => {
 
-	const dispatch = useTypedDispatch()
-
 	const { searchValue } = useContext(SearchContext)
 
-	const pizzas = useSelector(selectPizzas)
-	const isLoading = useSelector(selectIsLoading)
-
+	const [isLoading, setIsLoading] = useState(false)
+	const [pizzas, setPizzas] = useState<PizzasType[]>([])
 	const [pizzaCategory, setPizzaCategory] = useState(0)
 	const [pizzaSorting, setPizzaSorting] = useState({ name: 'популярности', sortProperty: 'rating' })
 	const [currentPage, setCurrentPage] = useState(1)
@@ -47,7 +41,14 @@ export const Home: FC<HomePropsType> = (): ReturnComponentType => {
 	const scrollPageUp = (): void => window.scrollTo(0, 0)
 
 	useEffect(() => {
-		dispatch(getPizzasTC(pizzaCategory, pizzaSorting.sortProperty, pizzaSorting.sortProperty, searchValue, currentPage))
+		setIsLoading(true)
+
+		PIZZAS.getPizzas(pizzaCategory, pizzaSorting.sortProperty, pizzaSorting.sortProperty, searchValue, currentPage)
+			.then((response) => {
+				setPizzas(response.data)
+				setIsLoading(false)
+			})
+
 		scrollPageUp()
 	}, [pizzaCategory, pizzaSorting.sortProperty, searchValue, currentPage])
 

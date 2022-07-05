@@ -1,4 +1,4 @@
-import React, { createContext, FC } from 'react'
+import React, { FC } from 'react'
 import { Header } from 'components'
 import { ReturnComponentType } from 'types'
 import { Cart, Home, NotFound } from 'pages'
