@@ -5,7 +5,12 @@ import { Link } from 'react-router-dom'
 import { Path } from 'enums'
 import { Search } from 'components/Search'
 
-export const Header: FC = (): ReturnComponentType => {
+export type HeaderPropsType = {
+	searchValue: string
+	setSearchValue: (searchValue: string) => void
+}
+
+export const Header: FC<HeaderPropsType> = ({ searchValue, setSearchValue }): ReturnComponentType => {
 	return (
 		<div className='header'>
 			<div className='container'>
@@ -18,7 +23,7 @@ export const Header: FC = (): ReturnComponentType => {
 						</div>
 					</div>
 				</Link>
-				<Search />
+				<Search searchValue={searchValue} setSearchValue={setSearchValue} />
 				<div className='header__cart'>
 					<Link to={Path.cart} className='button button--cart'>
 						<span>520 ₽</span>

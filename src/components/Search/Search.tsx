@@ -1,13 +1,22 @@
-import React, { ChangeEvent, FC } from 'react'
-import { useState } from 'react'
+import { EMPTY_STRING } from 'constants/base'
+import React, { ChangeEvent, FC, memo } from 'react'
 import { ReturnComponentType } from 'types'
 import style from './Search.module.scss'
 
 export type SearchPropsType = {
-
+	searchValue: string
+	setSearchValue: (searchValue: string) => void
 }
 
-export const Search: FC<SearchPropsType> = (): ReturnComponentType => {
+export const Search: FC<SearchPropsType> = memo(({ searchValue, setSearchValue }): ReturnComponentType => {
+
+	const onSearchValueChange = (e: ChangeEvent<HTMLInputElement>): void => {
+		setSearchValue(e.currentTarget.value)
+	}
+
+	const onResetSearchValueClick = (): void => {
+		setSearchValue(EMPTY_STRING)
+	}
 
 	return (
 		<div className={style.root}>
@@ -44,15 +53,16 @@ export const Search: FC<SearchPropsType> = (): ReturnComponentType => {
 					y2='20.366'
 				/>
 			</svg>
-			<input className={style.input} placeholder='Поиск пиццы...' />
-			{/* {value && (
+			<input className={style.input} placeholder='Поиск пиццы...' value={searchValue} onChange={onSearchValueChange} />
+			{searchValue &&
 				<svg
 					className={style.clearIcon}
+					onClick={onResetSearchValueClick}
 					viewBox='0 0 20 20'
 					xmlns='http://www.w3.org/2000/svg'>
 					<path d='M10 8.586L2.929 1.515 1.515 2.929 8.586 10l-7.071 7.071 1.414 1.414L10 11.414l7.071 7.071 1.414-1.414L11.414 10l7.071-7.071-1.414-1.414L10 8.586z' />
 				</svg>
-			)} */}
+			}
 		</div>
 	)
-}
+})

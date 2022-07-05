@@ -1,24 +1,25 @@
 import React, { FC } from 'react'
+import { memo } from 'react'
 import { ReturnComponentType } from 'types'
 
 export type CategoriesPropsType = {
-	currentCategory: number
-	handleSelectCurrentCategoryClick: (index: number) => void
+	pizzaCategory: number
+	handleSelectPizzaCategoryClick: (index: number) => void
 }
 
-export const Categories: FC<CategoriesPropsType> = ({ currentCategory, handleSelectCurrentCategoryClick }): ReturnComponentType => {
+export const Categories: FC<CategoriesPropsType> = memo(({ pizzaCategory, handleSelectPizzaCategoryClick }): ReturnComponentType => {
 
 	const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые']
 
 	const renderCategories = categories.map((category, index) => {
 
-		const onSelectCurrentCategoryClick = (): void => handleSelectCurrentCategoryClick(index)
+		const onSelectPizzaCategoryClick = (): void => handleSelectPizzaCategoryClick(index)
 
 		return (
 			<li
 				key={index}
-				className={currentCategory === index ? 'active' : ''}
-				onClick={onSelectCurrentCategoryClick}>
+				className={pizzaCategory === index ? 'active' : ''}
+				onClick={onSelectPizzaCategoryClick}>
 				{category}
 			</li>
 		)
@@ -29,4 +30,4 @@ export const Categories: FC<CategoriesPropsType> = ({ currentCategory, handleSel
 			<ul>{renderCategories}</ul>
 		</div>
 	)
-}
+})
