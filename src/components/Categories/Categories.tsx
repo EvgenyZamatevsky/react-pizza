@@ -1,26 +1,31 @@
 import React, { FC } from 'react'
 import { memo } from 'react'
+import { useDispatch } from 'react-redux'
+import { setCategory } from 'redux/slices/filterSlice'
 import { ReturnComponentType } from 'types'
 
 export type CategoriesPropsType = {
-	pizzaCategory: number
-	handleSelectPizzaCategoryClick: (index: number) => void
+	category: number
 }
 
-export const Categories: FC<CategoriesPropsType> = memo(({ pizzaCategory, handleSelectPizzaCategoryClick }): ReturnComponentType => {
+export const Categories: FC<CategoriesPropsType> = memo(({ category }): ReturnComponentType => {
+
+	const dispatch = useDispatch()
 
 	const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые']
 
-	const renderCategories = categories.map((category, index) => {
+	const renderCategories = categories.map((c, index) => {
 
-		const onSelectPizzaCategoryClick = (): void => handleSelectPizzaCategoryClick(index)
+		const onSelectPizzaCategoryClick = (): void => {
+			dispatch(setCategory(index))
+		}
 
 		return (
 			<li
 				key={index}
-				className={pizzaCategory === index ? 'active' : ''}
+				className={category === index ? 'active' : ''}
 				onClick={onSelectPizzaCategoryClick}>
-				{category}
+				{c}
 			</li>
 		)
 	})

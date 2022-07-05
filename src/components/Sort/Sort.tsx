@@ -1,35 +1,38 @@
 import React, { FC, memo, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { setSort, SortType } from 'redux/slices/filterSlice'
 import { ReturnComponentType } from 'types'
 
 export type SortPropsType = {
-	pizzaSorting: { name: string, sortProperty: string }
-	handleSelectPizzaSortingClick: (sortValues: { name: string, sortProperty: string }) => void
+	sort: SortType
 }
 
-export const Sort: FC<SortPropsType> = memo(({ pizzaSorting, handleSelectPizzaSortingClick }): ReturnComponentType => {
+const pizzaSortingList = [
+	{ name: 'популярности (DESC)', sortProperty: 'rating' },
+	{ name: 'популярности (ASC)', sortProperty: '-rating' },
+	{ name: 'цене (DESC)', sortProperty: 'price' },
+	{ name: 'цене (ASC)', sortProperty: '-price' },
+	{ name: 'алфавиту (DESC)', sortProperty: 'title' },
+	{ name: 'алфавиту (ASC)', sortProperty: '-title' },
+]
+
+export const Sort: FC<SortPropsType> = memo(({ sort }): ReturnComponentType => {
+
+	const dispatch = useDispatch()
 
 	const [isVisiblePopup, setIsVisiblePopup] = useState<boolean>(false)
-
-	const pizzaSortingList = [
-		{ name: 'популярности (DESC)', sortProperty: 'rating' },
-		{ name: 'популярности (ASC)', sortProperty: '-rating' },
-		{ name: 'цене (DESC)', sortProperty: 'price' },
-		{ name: 'цене (ASC)', sortProperty: '-price' },
-		{ name: 'алфавиту (DESC)', sortProperty: 'title' },
-		{ name: 'алфавиту (ASC)', sortProperty: '-title' },
-	]
 
 	const renderPizzaSorting = pizzaSortingList.map((pizzaSortList, index) => {
 
 		const onSelectPizzaSortingClick = (): void => {
-			handleSelectPizzaSortingClick(pizzaSortList)
+			dispatch(setSort(pizzaSortList))
 			setIsVisiblePopup(false)
 		}
 
 		return (
 			<li
 				key={index}
-				className={pizzaSorting.sortProperty === pizzaSortList.sortProperty ? 'active' : ''}
+				className={sort.sortProperty === pizzaSortList.sortProperty ? 'active' : ''}
 				onClick={onSelectPizzaSortingClick}>
 				{pizzaSortList.name}
 			</li>
@@ -54,7 +57,7 @@ export const Sort: FC<SortPropsType> = memo(({ pizzaSorting, handleSelectPizzaSo
 					/>
 				</svg>
 				<b>Сортировка по:</b>
-				<span onClick={onToggleActiveSortClick}>{pizzaSorting.name}</span>
+				<span onClick={onToggleActiveSortClick}>{sort.name}</span>
 			</div>
 			{isVisiblePopup &&
 				<div className='sort__popup'>
