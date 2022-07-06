@@ -1,4 +1,4 @@
-import React, { FC, memo, useState } from 'react'
+import React, { FC, memo, useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { setSort, SortType } from 'redux/slices/filterSlice'
 import { ReturnComponentType } from 'types'
@@ -19,6 +19,8 @@ const pizzaSortingList = [
 export const Sort: FC<SortPropsType> = memo(({ sort }): ReturnComponentType => {
 
 	const dispatch = useDispatch()
+
+	const sortRef = useRef<HTMLDivElement>(null)
 
 	const [isVisiblePopup, setIsVisiblePopup] = useState<boolean>(false)
 
@@ -41,8 +43,21 @@ export const Sort: FC<SortPropsType> = memo(({ sort }): ReturnComponentType => {
 
 	const onToggleActiveSortClick = (): void => setIsVisiblePopup(!isVisiblePopup)
 
+	useEffect(() => {
+		const onOutsideClick = (e: any) => {
+			if (!e.path.includes(sortRef.current)) {
+				setIsVisiblePopup(false)
+				console.log('f')
+			}
+		}
+
+		document.body.addEventListener('click', onOutsideClick)
+
+		return () => document.body.removeEventListener('click', onOutsideClick)
+	}, [])
+
 	return (
-		<div className='sort'>
+		<div className='sort' ref={sortRef}>
 			<div className='sort__label' >
 				<svg
 					width='10'
