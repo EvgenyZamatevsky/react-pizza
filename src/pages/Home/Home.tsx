@@ -7,6 +7,8 @@ import { PizzasType } from 'api/pizzas/types'
 import { PIZZAS } from 'api/pizzas'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectCategory, selectSort } from 'redux/selectors/filter'
+import { selectPage } from 'redux/selectors/filter'
+import { setPage } from 'redux/slices/filterSlice'
 
 export type HomePropsType = {
 
@@ -16,21 +18,23 @@ const SIX_FAKE_ITEMS = 6
 
 export const Home: FC<HomePropsType> = (): ReturnComponentType => {
 
+	const dispatch = useDispatch()
+
 	const category = useSelector(selectCategory)
 	const sort = useSelector(selectSort)
+	const page = useSelector(selectPage)
 
 	const { searchValue } = useContext(SearchContext)
 
 	const [isLoading, setIsLoading] = useState(false)
 	const [pizzas, setPizzas] = useState<PizzasType[]>([])
-	const [currentPage, setCurrentPage] = useState(1)
 
 	const fakeItems = [...new Array(SIX_FAKE_ITEMS)]
 	const renderFakeItems = fakeItems.map((_, index) => <Skeleton key={index} />)
 	const renderPizzas = pizzas.map(pizza => <PizzaBlock key={pizza.id} pizza={pizza} />)
 
 	const handlePageChange = useCallback((page: number): void => {
-		setCurrentPage(page)
+		dispatch(setPage(page))
 	}, [])
 
 	const scrollPageUp = (): void => window.scrollTo(0, 0)
@@ -38,14 +42,14 @@ export const Home: FC<HomePropsType> = (): ReturnComponentType => {
 	useEffect(() => {
 		setIsLoading(true)
 
-		PIZZAS.getPizzas(category, sort.sortProperty, sort.sortProperty, searchValue, currentPage)
+		PIZZAS.getPizzas(category, sort.sortProperty, sort.sortProperty, searchValue, page)
 			.then((response) => {
 				setPizzas(response.data)
 				setIsLoading(false)
 			})
 
 		scrollPageUp()
-	}, [category, sort.sortProperty, searchValue, currentPage])
+	}, [category, sort.sortProperty, searchValue, page])
 
 	return (
 		<div className='container'>
@@ -57,7 +61,7 @@ export const Home: FC<HomePropsType> = (): ReturnComponentType => {
 			<div className='content__items'>
 				{isLoading ? renderFakeItems : renderPizzas}
 			</div>
-			<Pagination currentPage={currentPage} handlePageChange={handlePageChange} />
+			<Pagination page={page} handlePageChange={handlePageChange} />
 		</div >
 	)
 }

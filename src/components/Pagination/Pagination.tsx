@@ -5,10 +5,10 @@ import style from './Pagination.module.scss'
 
 export type PaginationPropsType = {
 	handlePageChange: (page: number) => void
-	currentPage: number
+	page: number
 }
 
-export const Pagination: FC<PaginationPropsType> = memo(({ currentPage, handlePageChange }): ReturnComponentType => {
+export const Pagination: FC<PaginationPropsType> = memo(({ page, handlePageChange }): ReturnComponentType => {
 
 	const onPageChange = (e: { selected: number }): void => {
 		handlePageChange(e.selected + 1)
@@ -23,7 +23,7 @@ export const Pagination: FC<PaginationPropsType> = memo(({ currentPage, handlePa
 			onPageChange={onPageChange}
 			pageRangeDisplayed={4}
 			pageCount={3}
-			forcePage={currentPage - 1}
+			forcePage={page - 1}
 		/>
 	)
 })

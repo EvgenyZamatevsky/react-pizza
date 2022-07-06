@@ -26,9 +26,7 @@ export const Search: FC<SearchPropsType> = (): ReturnComponentType => {
 		updateSearchValue(e.currentTarget.value)
 	}
 
-	const addFocus = (): void => {
-		inputRef.current?.focus()
-	}
+	const addFocus = (): void => inputRef.current?.focus()
 
 	const onResetSearchValueClick = (): void => {
 		setValue(EMPTY_STRING)
