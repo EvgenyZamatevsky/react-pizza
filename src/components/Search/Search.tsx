@@ -1,22 +1,39 @@
 import { EMPTY_STRING } from 'constants/base'
 import { SearchContext } from 'context'
-import React, { ChangeEvent, FC, memo, useContext } from 'react'
+import debounce from 'lodash.debounce'
+import React, { ChangeEvent, FC, useCallback, useContext, useRef, useState } from 'react'
 import { ReturnComponentType } from 'types'
 import style from './Search.module.scss'
 
 export type SearchPropsType = {
+
 }
 
 export const Search: FC<SearchPropsType> = (): ReturnComponentType => {
 
-	const { searchValue, setSearchValue } = useContext(SearchContext)
+	const { setSearchValue } = useContext(SearchContext)
 
-	const onSearchValueChange = (e: ChangeEvent<HTMLInputElement>): void => {
-		setSearchValue(e.currentTarget.value)
+	const inputRef = useRef<HTMLInputElement>(null)
+
+	const [value, setValue] = useState(EMPTY_STRING)
+
+	const updateSearchValue = useCallback(debounce((value): void => {
+		setSearchValue(value)
+	}, 250), [])
+
+	const onInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
+		setValue(e.currentTarget.value)
+		updateSearchValue(e.currentTarget.value)
+	}
+
+	const addFocus = (): void => {
+		inputRef.current?.focus()
 	}
 
 	const onResetSearchValueClick = (): void => {
+		setValue(EMPTY_STRING)
 		setSearchValue(EMPTY_STRING)
+		addFocus()
 	}
 
 	return (
@@ -54,8 +71,8 @@ export const Search: FC<SearchPropsType> = (): ReturnComponentType => {
 					y2='20.366'
 				/>
 			</svg>
-			<input className={style.input} placeholder='Поиск пиццы...' value={searchValue} onChange={onSearchValueChange} />
-			{searchValue &&
+			<input className={style.input} placeholder='Поиск пиццы...' value={value} onChange={onInputChange} ref={inputRef} />
+			{value &&
 				<svg
 					className={style.clearIcon}
 					onClick={onResetSearchValueClick}
