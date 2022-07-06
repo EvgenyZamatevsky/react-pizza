@@ -14,7 +14,7 @@ export type HomePropsType = {
 
 }
 
-const SIX_FAKE_ITEMS = 6
+const FOUR_FAKE_ITEMS = 4
 
 export const Home: FC<HomePropsType> = (): ReturnComponentType => {
 
@@ -29,7 +29,7 @@ export const Home: FC<HomePropsType> = (): ReturnComponentType => {
 	const [isLoading, setIsLoading] = useState(false)
 	const [pizzas, setPizzas] = useState<PizzasType[]>([])
 
-	const fakeItems = [...new Array(SIX_FAKE_ITEMS)]
+	const fakeItems = [...new Array(FOUR_FAKE_ITEMS)]
 	const renderFakeItems = fakeItems.map((_, index) => <Skeleton key={index} />)
 	const renderPizzas = pizzas.map(pizza => <PizzaBlock key={pizza.id} pizza={pizza} />)
 

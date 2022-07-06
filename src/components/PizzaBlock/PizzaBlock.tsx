@@ -52,7 +52,7 @@ export const PizzaBlock: FC<PizzaBlockPropsType> = memo(({ pizza }): ReturnCompo
 	})
 
 	const onAddPizzaToCartClick = (): void => {
-		const pizza = { id, imageUrl, title, price, type: typeNames[currentType], size: currentSize }
+		const pizza = { id, imageUrl, title, price, type: typeNames[currentType], size: sizes[currentSize] }
 		dispatch(addItemToCart(pizza))
 	}
 

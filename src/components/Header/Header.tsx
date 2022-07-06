@@ -15,7 +15,7 @@ export const Header: FC<HeaderPropsType> = (): ReturnComponentType => {
 	const totalPrice = useSelector(selectTotalPrice)
 	const cartItems = useSelector(selectCartItems)
 
-	const amountItemsCart = cartItems.length
+	const totalCount = cartItems.reduce((acc, item) => acc + item.count, 0)
 
 	return (
 		<div className='header'>
@@ -63,7 +63,7 @@ export const Header: FC<HeaderPropsType> = (): ReturnComponentType => {
 								strokeLinejoin='round'
 							/>
 						</svg>
-						<span>{amountItemsCart}</span>
+						<span>{totalCount}</span>
 					</Link>
 				</div>
 			</div>
