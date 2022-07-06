@@ -1,30 +1,41 @@
 import React, { FC, memo, useState } from 'react'
 import { PizzasType } from 'api/pizzas/types'
 import { ReturnComponentType } from 'types'
+import { useDispatch, useSelector } from 'react-redux'
+import { addItemToCart } from 'redux/slices/cartSlice'
+import { selectCartItems } from 'redux/selectors/cart'
 
 export type PizzaBlockPropsType = {
 	pizza: PizzasType
 }
 
+const typeNames = ['тонкое', 'традиционное']
+
 export const PizzaBlock: FC<PizzaBlockPropsType> = memo(({ pizza }): ReturnComponentType => {
 
 	const { category, id, imageUrl, price, rating, sizes, title, types } = pizza
 
+	const dispatch = useDispatch()
+
+	const cartItem = useSelector(selectCartItems).find(item => item.id === id)
+
 	const [currentSize, setCurrentSize] = useState(0)
 	const [currentType, setCurrentType] = useState(0)
 
-	const typeNames = ['тонкое', 'традиционное']
+	const count = cartItem ? cartItem.count : 0
 
 	const renderPizzaSizes = sizes.map((size, index) => {
 
 		const onSelectCurrentSizeClick = (): void => setCurrentSize(index)
 
-		return <li
-			key={index}
-			className={currentSize === index ? 'active' : ''}
-			onClick={onSelectCurrentSizeClick}>
-			{size} см.
-		</li>
+		return (
+			<li
+				key={index}
+				className={currentSize === index ? 'active' : ''}
+				onClick={onSelectCurrentSizeClick}>
+				{size} см.
+			</li>
+		)
 	})
 	const renderPizzaTypes = types.map((type, index) => {
 
@@ -40,6 +51,11 @@ export const PizzaBlock: FC<PizzaBlockPropsType> = memo(({ pizza }): ReturnCompo
 		)
 	})
 
+	const onAddPizzaToCartClick = (): void => {
+		const pizza = { id, imageUrl, title, price, type: typeNames[currentType], size: currentSize }
+		dispatch(addItemToCart(pizza))
+	}
+
 	return (
 		<div className='pizza-block-wrapper'>
 			<div className='pizza-block'>
@@ -51,7 +67,7 @@ export const PizzaBlock: FC<PizzaBlockPropsType> = memo(({ pizza }): ReturnCompo
 				</div>
 				<div className='pizza-block__bottom'>
 					<div className='pizza-block__price'>от {price} ₽</div>
-					<button className='button button--outline button--add'>
+					<button className='button button--outline button--add' onClick={onAddPizzaToCartClick}>
 						<svg
 							width='12'
 							height='12'
@@ -65,7 +81,7 @@ export const PizzaBlock: FC<PizzaBlockPropsType> = memo(({ pizza }): ReturnCompo
 							/>
 						</svg>
 						<span>Добавить</span>
-						<i>2</i>
+						{count > 0 && <i>{count}</i>}
 					</button>
 				</div>
 			</div>

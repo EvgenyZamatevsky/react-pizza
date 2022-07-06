@@ -4,11 +4,19 @@ import pizzaLogo from 'assets/img/pizza-logo.svg'
 import { Link } from 'react-router-dom'
 import { Path } from 'enums'
 import { Search } from 'components/Search'
+import { useSelector } from 'react-redux'
+import { selectCartItems, selectTotalPrice } from 'redux/selectors/cart'
 
 export type HeaderPropsType = {
 }
 
 export const Header: FC<HeaderPropsType> = (): ReturnComponentType => {
+
+	const totalPrice = useSelector(selectTotalPrice)
+	const cartItems = useSelector(selectCartItems)
+
+	const amountItemsCart = cartItems.length
+
 	return (
 		<div className='header'>
 			<div className='container'>
@@ -24,7 +32,7 @@ export const Header: FC<HeaderPropsType> = (): ReturnComponentType => {
 				<Search />
 				<div className='header__cart'>
 					<Link to={Path.cart} className='button button--cart'>
-						<span>520 ₽</span>
+						<span>{totalPrice} ₽</span>
 						<div className='button__delimiter'></div>
 						<svg
 							width='18'
@@ -55,7 +63,7 @@ export const Header: FC<HeaderPropsType> = (): ReturnComponentType => {
 								strokeLinejoin='round'
 							/>
 						</svg>
-						<span>3</span>
+						<span>{amountItemsCart}</span>
 					</Link>
 				</div>
 			</div>

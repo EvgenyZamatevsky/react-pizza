@@ -47,7 +47,6 @@ export const Sort: FC<SortPropsType> = memo(({ sort }): ReturnComponentType => {
 		const onOutsideClick = (e: any) => {
 			if (!e.path.includes(sortRef.current)) {
 				setIsVisiblePopup(false)
-				console.log('f')
 			}
 		}
 
