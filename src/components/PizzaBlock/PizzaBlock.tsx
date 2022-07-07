@@ -3,7 +3,7 @@ import { PizzasType } from 'api/pizzas/types'
 import { ReturnComponentType } from 'types'
 import { useDispatch, useSelector } from 'react-redux'
 import { addItemToCart } from 'redux/slices/cartSlice'
-import { selectCartItems } from 'redux/selectors/cart'
+import { selectCartItem } from 'redux/selectors/cart'
 
 export type PizzaBlockPropsType = {
 	pizza: PizzasType
@@ -17,7 +17,7 @@ export const PizzaBlock: FC<PizzaBlockPropsType> = memo(({ pizza }): ReturnCompo
 
 	const dispatch = useDispatch()
 
-	const cartItem = useSelector(selectCartItems).find(item => item.id === id)
+	const cartItem = useSelector(selectCartItem(id))
 
 	const [currentSize, setCurrentSize] = useState(0)
 	const [currentType, setCurrentType] = useState(0)

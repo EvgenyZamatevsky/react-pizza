@@ -1,11 +1,13 @@
 import { combineReducers, configureStore, ThunkAction } from '@reduxjs/toolkit'
 import cartSlice from './slices/cartSlice'
 import filterSlice from './slices/filterSlice'
+import pizzasSlice from './slices/pizzasSlice'
 
 
 export const rootReducer = combineReducers({
 	filter: filterSlice,
-	cart: cartSlice
+	cart: cartSlice,
+	pizzas: pizzasSlice
 })
 
 export const store = configureStore({

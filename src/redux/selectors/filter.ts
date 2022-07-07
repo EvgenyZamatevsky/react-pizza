@@ -6,3 +6,5 @@ export const selectCategory = (state: RootReducerType): number => state.filter.c
 export const selectSort = (state: RootReducerType): SortType => state.filter.sort
 
 export const selectPage = (state: RootReducerType): number => state.filter.page
+
+export const selectSearchValue = (state: RootReducerType): string => state.filter.searchValue

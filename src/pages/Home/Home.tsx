@@ -1,14 +1,13 @@
-import React, { FC, useContext, useEffect, useState } from 'react'
+import React, { FC, useContext, useEffect } from 'react'
 import { PizzaBlock, Categories, Sort, Skeleton, Pagination } from 'components'
 import { ReturnComponentType } from 'types'
 import { useCallback } from 'react'
-import { SearchContext } from 'context'
-import { PizzasType } from 'api/pizzas/types'
-import { PIZZAS } from 'api/pizzas'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectCategory, selectSort } from 'redux/selectors/filter'
+import { selectCategory, selectSearchValue, selectSort } from 'redux/selectors/filter'
 import { selectPage } from 'redux/selectors/filter'
 import { setPage } from 'redux/slices/filterSlice'
+import { getPizzas } from 'redux/slices/pizzasSlice'
+import { selectLoadingStatus, selectPizzas } from 'redux/selectors/pizzas'
 
 export type HomePropsType = {
 
@@ -20,14 +19,12 @@ export const Home: FC<HomePropsType> = (): ReturnComponentType => {
 
 	const dispatch = useDispatch()
 
+	const pizzas = useSelector(selectPizzas)
 	const category = useSelector(selectCategory)
 	const sort = useSelector(selectSort)
 	const page = useSelector(selectPage)
-
-	const { searchValue } = useContext(SearchContext)
-
-	const [isLoading, setIsLoading] = useState(false)
-	const [pizzas, setPizzas] = useState<PizzasType[]>([])
+	const loadingStatus = useSelector(selectLoadingStatus)
+	const searchValue = useSelector(selectSearchValue)
 
 	const fakeItems = [...new Array(FOUR_FAKE_ITEMS)]
 	const renderFakeItems = fakeItems.map((_, index) => <Skeleton key={index} />)
@@ -40,13 +37,14 @@ export const Home: FC<HomePropsType> = (): ReturnComponentType => {
 	const scrollPageUp = (): void => window.scrollTo(0, 0)
 
 	useEffect(() => {
-		setIsLoading(true)
-
-		PIZZAS.getPizzas(category, sort.sortProperty, sort.sortProperty, searchValue, page)
-			.then((response) => {
-				setPizzas(response.data)
-				setIsLoading(false)
-			})
+		//@ts-ignore
+		dispatch(getPizzas({
+			category,
+			sortProperty: sort.sortProperty,
+			order: sort.sortProperty,
+			searchValue,
+			page
+		}))
 
 		scrollPageUp()
 	}, [category, sort.sortProperty, searchValue, page])
@@ -58,9 +56,16 @@ export const Home: FC<HomePropsType> = (): ReturnComponentType => {
 				<Sort sort={sort} />
 			</div>
 			<h2 className='content__title'>Все пиццы</h2>
-			<div className='content__items'>
-				{isLoading ? renderFakeItems : renderPizzas}
-			</div>
+			{loadingStatus === 'error' ?
+				<div className='content__error-info'>
+					<h2>Произошла ошибка 😕</h2>
+					<p>
+						К сожалению, не удалось получить пиццы. Попробуйте повторить попытку позже.
+					</p>
+				</div>
+				: <div className='content__items'>
+					{loadingStatus === 'loading' ? renderFakeItems : renderPizzas}
+				</div>}
 			<Pagination page={page} handlePageChange={handlePageChange} />
 		</div >
 	)

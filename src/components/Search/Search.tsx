@@ -1,7 +1,8 @@
 import { EMPTY_STRING } from 'constants/base'
-import { SearchContext } from 'context'
 import debounce from 'lodash.debounce'
-import React, { ChangeEvent, FC, useCallback, useContext, useRef, useState } from 'react'
+import React, { ChangeEvent, FC, useCallback, useRef, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { setSearchValue } from 'redux/slices/filterSlice'
 import { ReturnComponentType } from 'types'
 import style from './Search.module.scss'
 
@@ -11,14 +12,14 @@ export type SearchPropsType = {
 
 export const Search: FC<SearchPropsType> = (): ReturnComponentType => {
 
-	const { setSearchValue } = useContext(SearchContext)
+	const dispatch = useDispatch()
 
 	const inputRef = useRef<HTMLInputElement>(null)
 
 	const [value, setValue] = useState(EMPTY_STRING)
 
 	const updateSearchValue = useCallback(debounce((value): void => {
-		setSearchValue(value)
+		dispatch(setSearchValue(value))
 	}, 250), [])
 
 	const onInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -30,7 +31,7 @@ export const Search: FC<SearchPropsType> = (): ReturnComponentType => {
 
 	const onResetSearchValueClick = (): void => {
 		setValue(EMPTY_STRING)
-		setSearchValue(EMPTY_STRING)
+		dispatch(setSearchValue(EMPTY_STRING))
 		addFocus()
 	}
 

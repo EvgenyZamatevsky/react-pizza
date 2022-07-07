@@ -5,4 +5,6 @@ export const selectTotalPrice = (state: RootReducerType): number => state.cart.t
 
 export const selectCartItems = (state: RootReducerType): CartItemsType[] => state.cart.cartItems
 
-//export const selectCount = (id: number, state: RootReducerType) => state.cart.cartItems.find(item => item.id === id)
+export const selectCartItem = (id: number) => (state: RootReducerType) => {
+	return state.cart.cartItems.find(item => item.id === id)
+}

@@ -1,7 +1,6 @@
 import { instance } from 'api/config'
 import { PizzasType } from './types'
 
-
 export const PIZZAS = {
 	getPizzas(category: number, sortBy: string, order: string, search: string, page: number) {
 
