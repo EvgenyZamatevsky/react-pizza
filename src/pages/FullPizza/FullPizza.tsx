@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react'
 import { Path } from 'enums'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { ReturnComponentType } from 'types'
 import { useDispatch, useSelector } from 'react-redux'
 import { getPizzaItem } from 'redux/slices/pizzasSlice'
@@ -17,11 +17,16 @@ export const FullPizza: FC<FullPizzaPropsType> = (): ReturnComponentType => {
 	const pizzaItem = useSelector(selectPizzaItem)
 
 	const { pizzaId } = useParams()
+	const navigate = useNavigate()
 
 	useEffect(() => {
 		//@ts-ignore
 		dispatch(getPizzaItem(pizzaId))
 	}, [])
+
+	if (!pizzaItem) {
+		navigate(Path.home)
+	}
 
 	return (
 		<div className='container'>
