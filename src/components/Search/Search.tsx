@@ -1,14 +1,14 @@
 import { EMPTY_STRING } from 'constants/base'
+import { useTypedDispatch } from 'hooks/useTypedDispatch'
 import debounce from 'lodash.debounce'
 import React, { ChangeEvent, FC, useCallback, useRef, useState } from 'react'
-import { useDispatch } from 'react-redux'
 import { setSearchValue } from 'redux/slices/filterSlice'
 import { ReturnComponentType } from 'types'
 import style from './Search.module.scss'
 
 export const Search: FC = (): ReturnComponentType => {
 
-	const dispatch = useDispatch()
+	const dispatch = useTypedDispatch()
 
 	const inputRef = useRef<HTMLInputElement>(null)
 

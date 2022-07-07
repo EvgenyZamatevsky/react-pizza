@@ -2,8 +2,13 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { PIZZAS } from 'api/pizzas'
 import { PizzasType } from 'api/pizzas/types'
 
-export const getPizzas = createAsyncThunk('pizzas/getPizzas', async (params, thunkAPI) => {
-	//@ts-ignore
+export enum LoadingStatusEnum {
+	LOADING = 'loading',
+	SUCCESS = 'success',
+	ERROR = 'error',
+}
+
+export const getPizzas = createAsyncThunk<PizzasType[], GetPizzasParamsType>('pizzas/getPizzas', async (params) => {
 	const { category, order, page, searchValue, sortProperty } = params
 
 	const { data: pizzas } = await PIZZAS.getPizzas(category, sortProperty, order, searchValue, page)
@@ -11,9 +16,8 @@ export const getPizzas = createAsyncThunk('pizzas/getPizzas', async (params, thu
 	return pizzas
 })
 
-export const getPizzaItem = createAsyncThunk('pizzas/getPizzaItem', async (params) => {
+export const getPizzaItem = createAsyncThunk<PizzasType | undefined, string>('pizzas/getPizzaItem', async (params) => {
 	try {
-		//@ts-ignore
 		const { data: pizzaItem } = await PIZZAS.getPizzaItem(params)
 
 		return pizzaItem
@@ -25,7 +29,7 @@ export const getPizzaItem = createAsyncThunk('pizzas/getPizzaItem', async (param
 const initialState: InitialStateType = {
 	pizzas: [],
 	pizzaItem: {} as PizzasType,
-	loadingStatus: 'loading'
+	loadingStatus: LoadingStatusEnum.LOADING
 }
 
 const pizzasSlice = createSlice({
@@ -36,27 +40,24 @@ const pizzasSlice = createSlice({
 		// 	state.pizzas = action.payload
 		// }
 	},
-	extraReducers: {
-		//@ts-ignore
-		[getPizzas.pending]: (state) => {
-			state.loadingStatus = 'loading'
-			state.pizzas = []
-		},
-		//@ts-ignore
-		[getPizzas.fulfilled]: (state, action) => {
-			state.pizzas = action.payload
-			state.loadingStatus = 'success'
-		},
-		//@ts-ignore
-		[getPizzas.rejected]: (state) => {
-			state.loadingStatus = 'error'
-			state.pizzas = []
-		},
-		//@ts-ignore
-		[getPizzaItem.fulfilled]: (state, action) => {
-			state.pizzaItem = action.payload
-		}
-	}
+	extraReducers(builder) {
+		builder
+			.addCase(getPizzas.pending, (state) => {
+				state.loadingStatus = LoadingStatusEnum.LOADING
+				state.pizzas = []
+			})
+			.addCase(getPizzas.fulfilled, (state, action) => {
+				state.pizzas = action.payload
+				state.loadingStatus = LoadingStatusEnum.SUCCESS
+			})
+			.addCase(getPizzas.rejected, (state) => {
+				state.loadingStatus = LoadingStatusEnum.ERROR
+				state.pizzas = []
+			})
+			.addCase(getPizzaItem.fulfilled, (state, action) => {
+				state.pizzaItem = action.payload as PizzasType
+			})
+	},
 })
 
 export const { } = pizzasSlice.actions
@@ -64,8 +65,16 @@ export const { } = pizzasSlice.actions
 export default pizzasSlice.reducer
 
 // types
-type InitialStateType = {
+interface InitialStateType {
 	pizzas: PizzasType[]
-	loadingStatus: string
+	loadingStatus: LoadingStatusEnum
 	pizzaItem: PizzasType
+}
+
+export type GetPizzasParamsType = {
+	category: number
+	order: string
+	page: number
+	searchValue: string
+	sortProperty: string
 }

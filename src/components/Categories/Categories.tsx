@@ -1,6 +1,6 @@
+import { useTypedDispatch } from 'hooks/useTypedDispatch'
 import React, { FC } from 'react'
 import { memo } from 'react'
-import { useDispatch } from 'react-redux'
 import { setCategory } from 'redux/slices/filterSlice'
 import { ReturnComponentType } from 'types'
 
@@ -12,7 +12,7 @@ const categories = ['Все', 'Мясные', 'Вегетарианская', '�
 
 export const Categories: FC<CategoriesPropsType> = memo(({ category }): ReturnComponentType => {
 
-	const dispatch = useDispatch()
+	const dispatch = useTypedDispatch()
 
 	const renderCategories = categories.map((item, index) => {
 

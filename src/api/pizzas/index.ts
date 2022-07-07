@@ -1,4 +1,5 @@
 import { instance } from 'api/config'
+import { SortPropertyEnum } from 'redux/slices/filterSlice'
 import { PizzasType } from './types'
 
 export const PIZZAS = {
@@ -12,6 +13,6 @@ export const PIZZAS = {
 		return instance.get<PizzasType[]>(`pizzas?page=${page}&limit=4${currentCategory}&sortBy=${currentSortBy}&order=${currentOrder}${currentSearch}`)
 	},
 	getPizzaItem(pizzaId: string) {
-		return instance.get(`pizzas/${pizzaId}`)
+		return instance.get<PizzasType>(`pizzas/${pizzaId}`)
 	}
 }

@@ -1,9 +1,11 @@
 import React, { FC, memo, useState } from 'react'
 import { PizzasType } from 'api/pizzas/types'
 import { ReturnComponentType } from 'types'
-import { useDispatch, useSelector } from 'react-redux'
-import { addItemToCart } from 'redux/slices/cartSlice'
+import { useSelector } from 'react-redux'
+import { addItemToCart, CartItemsType } from 'redux/slices/cartSlice'
 import { selectCartItem } from 'redux/selectors/cart'
+import { useTypedDispatch } from 'hooks/useTypedDispatch'
+import { Link } from 'react-router-dom'
 
 export type PizzaBlockPropsType = {
 	pizza: PizzasType
@@ -15,7 +17,7 @@ export const PizzaBlock: FC<PizzaBlockPropsType> = memo(({ pizza }): ReturnCompo
 
 	const { category, id, imageUrl, price, rating, sizes, title, types } = pizza
 
-	const dispatch = useDispatch()
+	const dispatch = useTypedDispatch()
 
 	const cartItem = useSelector(selectCartItem(id))
 
@@ -52,15 +54,17 @@ export const PizzaBlock: FC<PizzaBlockPropsType> = memo(({ pizza }): ReturnCompo
 	})
 
 	const onAddPizzaToCartClick = (): void => {
-		const pizza = { id, imageUrl, title, price, type: typeNames[currentType], size: sizes[currentSize] }
+		const pizza: CartItemsType = { id, imageUrl, title, price, type: typeNames[currentType], size: sizes[currentSize], count: 0, }
 		dispatch(addItemToCart(pizza))
 	}
 
 	return (
 		<div className='pizza-block-wrapper'>
 			<div className='pizza-block'>
-				<img className='pizza-block__image' src={imageUrl} alt='Pizza' />
-				<h4 className='pizza-block__title'>{title}</h4>
+				<Link to={`/pizza/${id}`}>
+					<img className='pizza-block__image' src={imageUrl} alt='Pizza' />
+					<h4 className='pizza-block__title'>{title}</h4>
+				</Link>
 				<div className='pizza-block__selector'>
 					<ul>{renderPizzaTypes}</ul>
 					<ul>{renderPizzaSizes}</ul>

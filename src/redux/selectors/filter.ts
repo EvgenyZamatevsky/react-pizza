@@ -1,10 +1,10 @@
 import { SortType } from 'redux/slices/filterSlice'
-import { RootReducerType } from 'redux/store'
+import { RootStateType } from 'redux/store'
 
-export const selectCategory = (state: RootReducerType): number => state.filter.category
+export const selectCategory = (state: RootStateType): number => state.filter.category
 
-export const selectSort = (state: RootReducerType): SortType => state.filter.sort
+export const selectSort = (state: RootStateType): SortType => state.filter.sort
 
-export const selectPage = (state: RootReducerType): number => state.filter.page
+export const selectPage = (state: RootStateType): number => state.filter.page
 
-export const selectSearchValue = (state: RootReducerType): string => state.filter.searchValue
+export const selectSearchValue = (state: RootStateType): string => state.filter.searchValue

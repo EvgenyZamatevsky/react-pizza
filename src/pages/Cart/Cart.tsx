@@ -1,8 +1,9 @@
+import React, { FC } from 'react'
 import { CartItem } from 'components'
 import { CartEmpty } from 'components/CartEmpty/CartEmpty'
 import { Path } from 'enums'
-import React, { FC } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useTypedDispatch } from 'hooks/useTypedDispatch'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { selectCartItems, selectTotalPrice } from 'redux/selectors/cart'
 import { clearCartItems } from 'redux/slices/cartSlice'
@@ -14,7 +15,7 @@ export type CartPropsType = {
 
 export const Cart: FC<CartPropsType> = (): ReturnComponentType => {
 
-	const dispatch = useDispatch()
+	const dispatch = useTypedDispatch()
 
 	const cartItems = useSelector(selectCartItems)
 	const totalPrice = useSelector(selectTotalPrice)

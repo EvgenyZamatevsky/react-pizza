@@ -17,8 +17,7 @@ export const FullPizza: FC = (): ReturnComponentType => {
 	const pizzaItem = useSelector(selectPizzaItem)
 
 	useEffect(() => {
-		//@ts-ignore
-		dispatch(getPizzaItem(pizzaId))
+		dispatch(getPizzaItem(pizzaId as string))
 	}, [])
 
 	if (!pizzaItem) {

@@ -1,8 +1,8 @@
 import { PizzasType } from 'api/pizzas/types'
-import { RootReducerType } from 'redux/store'
+import { RootStateType } from 'redux/store'
 
-export const selectPizzas = (state: RootReducerType): PizzasType[] => state.pizzas.pizzas
+export const selectPizzas = (state: RootStateType): PizzasType[] => state.pizzas.pizzas
 
-export const selectPizzaItem = (state: RootReducerType): PizzasType => state.pizzas.pizzaItem
+export const selectPizzaItem = (state: RootStateType): PizzasType => state.pizzas.pizzaItem
 
-export const selectLoadingStatus = (state: RootReducerType): string => state.pizzas.loadingStatus
+export const selectLoadingStatus = (state: RootStateType): string => state.pizzas.loadingStatus

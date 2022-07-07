@@ -1,24 +1,24 @@
+import { useTypedDispatch } from 'hooks/useTypedDispatch'
 import React, { FC, memo, useEffect, useRef, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { setSort, SortType } from 'redux/slices/filterSlice'
+import { setSort, SortPropertyEnum, SortType } from 'redux/slices/filterSlice'
 import { ReturnComponentType } from 'types'
 
 export type SortPropsType = {
 	sort: SortType
 }
 
-const pizzaSortingList = [
-	{ name: 'популярности (DESC)', sortProperty: 'rating' },
-	{ name: 'популярности (ASC)', sortProperty: '-rating' },
-	{ name: 'цене (DESC)', sortProperty: 'price' },
-	{ name: 'цене (ASC)', sortProperty: '-price' },
-	{ name: 'алфавиту (DESC)', sortProperty: 'title' },
-	{ name: 'алфавиту (ASC)', sortProperty: '-title' },
+const pizzaSortingList: SortType[] = [
+	{ name: 'популярности (DESC)', sortProperty: SortPropertyEnum.RATING_DESC },
+	{ name: 'популярности (ASC)', sortProperty: SortPropertyEnum.RATING_ASC },
+	{ name: 'цене (DESC)', sortProperty: SortPropertyEnum.PRICE_DESC },
+	{ name: 'цене (ASC)', sortProperty: SortPropertyEnum.PRICE_ASC },
+	{ name: 'алфавиту (DESC)', sortProperty: SortPropertyEnum.TITLE_DESC },
+	{ name: 'алфавиту (ASC)', sortProperty: SortPropertyEnum.TITLE_ASC },
 ]
 
 export const Sort: FC<SortPropsType> = memo(({ sort }): ReturnComponentType => {
 
-	const dispatch = useDispatch()
+	const dispatch = useTypedDispatch()
 
 	const sortRef = useRef<HTMLDivElement>(null)
 

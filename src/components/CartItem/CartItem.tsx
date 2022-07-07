@@ -1,5 +1,5 @@
+import { useTypedDispatch } from 'hooks/useTypedDispatch'
 import React, { FC } from 'react'
-import { useDispatch } from 'react-redux'
 import { addItemToCart, CartItemsType, minusCartItem, removeItemFromCart } from 'redux/slices/cartSlice'
 import { ReturnComponentType } from 'types'
 
@@ -11,10 +11,10 @@ export const CartItem: FC<CartItemPropsType> = ({ cartItem }): ReturnComponentTy
 
 	const { count, id, imageUrl, price, size, title, type } = cartItem
 
-	const dispatch = useDispatch()
+	const dispatch = useTypedDispatch()
 
 	const onPlusClick = (): void => {
-		dispatch(addItemToCart({ id }))
+		dispatch(addItemToCart({ id } as CartItemsType))
 	}
 
 	const onMinusClick = (): void => {

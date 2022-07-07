@@ -1,14 +1,15 @@
-import React, { FC, useContext, useEffect } from 'react'
+import React, { FC, useEffect } from 'react'
 import { PizzaBlock, Categories, Sort, Skeleton, Pagination } from 'components'
 import { ReturnComponentType } from 'types'
 import { useCallback } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { selectCategory, selectSearchValue, selectSort } from 'redux/selectors/filter'
 import { selectPage } from 'redux/selectors/filter'
 import { setPage } from 'redux/slices/filterSlice'
-import { getPizzas } from 'redux/slices/pizzasSlice'
+import { getPizzas, LoadingStatusEnum } from 'redux/slices/pizzasSlice'
 import { selectLoadingStatus, selectPizzas } from 'redux/selectors/pizzas'
 import { Link } from 'react-router-dom'
+import { useTypedDispatch } from 'hooks/useTypedDispatch'
 
 export type HomePropsType = {
 
@@ -18,7 +19,7 @@ const FOUR_FAKE_ITEMS = 4
 
 export const Home: FC<HomePropsType> = (): ReturnComponentType => {
 
-	const dispatch = useDispatch()
+	const dispatch = useTypedDispatch()
 
 	const pizzas = useSelector(selectPizzas)
 	const category = useSelector(selectCategory)
@@ -29,7 +30,7 @@ export const Home: FC<HomePropsType> = (): ReturnComponentType => {
 
 	const fakeItems = [...new Array(FOUR_FAKE_ITEMS)]
 	const renderFakeItems = fakeItems.map((_, index) => <Skeleton key={index} />)
-	const renderPizzas = pizzas.map(pizza => <Link key={pizza.id} to={`/pizza/${pizza.id}`}><PizzaBlock pizza={pizza} /></Link>)
+	const renderPizzas = pizzas.map(pizza => <PizzaBlock key={pizza.id} pizza={pizza} />)
 
 	const handlePageChange = useCallback((page: number): void => {
 		dispatch(setPage(page))
@@ -38,7 +39,6 @@ export const Home: FC<HomePropsType> = (): ReturnComponentType => {
 	const scrollPageUp = (): void => window.scrollTo(0, 0)
 
 	useEffect(() => {
-		//@ts-ignore
 		dispatch(getPizzas({
 			category,
 			sortProperty: sort.sortProperty,
@@ -57,7 +57,7 @@ export const Home: FC<HomePropsType> = (): ReturnComponentType => {
 				<Sort sort={sort} />
 			</div>
 			<h2 className='content__title'>Все пиццы</h2>
-			{loadingStatus === 'error' ?
+			{loadingStatus === LoadingStatusEnum.ERROR ?
 				<div className='content__error-info'>
 					<h2>Произошла ошибка 😕</h2>
 					<p>
@@ -65,7 +65,7 @@ export const Home: FC<HomePropsType> = (): ReturnComponentType => {
 					</p>
 				</div>
 				: <div className='content__items'>
-					{loadingStatus === 'loading' ? renderFakeItems : renderPizzas}
+					{loadingStatus === LoadingStatusEnum.LOADING ? renderFakeItems : renderPizzas}
 				</div>}
 			<Pagination page={page} handlePageChange={handlePageChange} />
 		</div >
