@@ -10,5 +10,8 @@ export const PIZZAS = {
 		const currentSearch = search ? `&search=${search.toLowerCase()}` : ''
 
 		return instance.get<PizzasType[]>(`pizzas?page=${page}&limit=4${currentCategory}&sortBy=${currentSortBy}&order=${currentOrder}${currentSearch}`)
+	},
+	getPizzaItem(pizzaId: string) {
+		return instance.get(`pizzas/${pizzaId}`)
 	}
 }

@@ -11,8 +11,20 @@ export const getPizzas = createAsyncThunk('pizzas/getPizzas', async (params, thu
 	return pizzas
 })
 
+export const getPizzaItem = createAsyncThunk('pizzas/getPizzaItem', async (params) => {
+	try {
+		//@ts-ignore
+		const { data: pizzaItem } = await PIZZAS.getPizzaItem(params)
+
+		return pizzaItem
+	} catch (error: any) {
+		alert(error.message)
+	}
+})
+
 const initialState: InitialStateType = {
 	pizzas: [],
+	pizzaItem: {} as PizzasType,
 	loadingStatus: 'loading'
 }
 
@@ -40,6 +52,10 @@ const pizzasSlice = createSlice({
 			state.loadingStatus = 'error'
 			state.pizzas = []
 		},
+		//@ts-ignore
+		[getPizzaItem.fulfilled]: (state, action) => {
+			state.pizzaItem = action.payload
+		}
 	}
 })
 
@@ -51,4 +67,5 @@ export default pizzasSlice.reducer
 type InitialStateType = {
 	pizzas: PizzasType[]
 	loadingStatus: string
+	pizzaItem: PizzasType
 }

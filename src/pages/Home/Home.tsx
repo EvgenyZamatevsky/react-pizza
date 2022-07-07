@@ -8,6 +8,7 @@ import { selectPage } from 'redux/selectors/filter'
 import { setPage } from 'redux/slices/filterSlice'
 import { getPizzas } from 'redux/slices/pizzasSlice'
 import { selectLoadingStatus, selectPizzas } from 'redux/selectors/pizzas'
+import { Link } from 'react-router-dom'
 
 export type HomePropsType = {
 
@@ -28,7 +29,7 @@ export const Home: FC<HomePropsType> = (): ReturnComponentType => {
 
 	const fakeItems = [...new Array(FOUR_FAKE_ITEMS)]
 	const renderFakeItems = fakeItems.map((_, index) => <Skeleton key={index} />)
-	const renderPizzas = pizzas.map(pizza => <PizzaBlock key={pizza.id} pizza={pizza} />)
+	const renderPizzas = pizzas.map(pizza => <Link key={pizza.id} to={`/pizza/${pizza.id}`}><PizzaBlock pizza={pizza} /></Link>)
 
 	const handlePageChange = useCallback((page: number): void => {
 		dispatch(setPage(page))
