@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { Path } from 'enums'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { ReturnComponentType } from 'types'
 
 export type FullPizzaPropsType = {
@@ -8,6 +8,10 @@ export type FullPizzaPropsType = {
 }
 
 export const FullPizza: FC<FullPizzaPropsType> = (): ReturnComponentType => {
+
+	const { pizzaId } = useParams()
+	console.log(pizzaId)
+
 	return (
 		<div className='container'>
 			<img src='' />

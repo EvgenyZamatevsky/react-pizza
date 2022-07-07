@@ -1,6 +1,6 @@
 export type PizzasType = {
 	category: number
-	id: number
+	id: string
 	imageUrl: string
 	price: number
 	rating: number

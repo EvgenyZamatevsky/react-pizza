@@ -61,7 +61,7 @@ export type InitialStateType = {
 }
 
 export type CartItemsType = {
-	id: number
+	id: string
 	imageUrl: string
 	price: number
 	size: number

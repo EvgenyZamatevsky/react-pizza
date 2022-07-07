@@ -1,5 +1,6 @@
 export enum Path {
 	home = '/',
 	notFound = '*',
-	cart = '/cart'
+	cart = '/cart',
+	fullPizza = '/pizza/:pizzaId'
 }

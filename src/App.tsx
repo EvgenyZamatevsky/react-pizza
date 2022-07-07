@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { Header } from 'components'
 import { ReturnComponentType } from 'types'
-import { Cart, Home, NotFound } from 'pages'
+import { Cart, FullPizza, Home, NotFound } from 'pages'
 import { Route, Routes } from 'react-router-dom'
 import { Path } from 'enums'
 import 'scss/app.scss'
@@ -15,6 +15,7 @@ export const App: FC = (): ReturnComponentType => {
           <Route path={Path.home} element={<Home />} />
           <Route path={Path.cart} element={<Cart />} />
           <Route path={Path.notFound} element={<NotFound />} />
+          <Route path={Path.fullPizza} element={<FullPizza />} />
         </Routes>
       </div>
     </div>

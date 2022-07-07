@@ -4,6 +4,8 @@ import { ReturnComponentType } from 'types'
 import { useDispatch, useSelector } from 'react-redux'
 import { addItemToCart } from 'redux/slices/cartSlice'
 import { selectCartItem } from 'redux/selectors/cart'
+import { Link } from 'react-router-dom'
+import { Path } from 'enums'
 
 export type PizzaBlockPropsType = {
 	pizza: PizzasType
@@ -59,7 +61,9 @@ export const PizzaBlock: FC<PizzaBlockPropsType> = memo(({ pizza }): ReturnCompo
 	return (
 		<div className='pizza-block-wrapper'>
 			<div className='pizza-block'>
-				<img className='pizza-block__image' src={imageUrl} alt='Pizza' />
+				<Link to={`/pizza/${id}`}>
+					<img className='pizza-block__image' src={imageUrl} alt='Pizza' />
+				</Link>
 				<h4 className='pizza-block__title'>{title}</h4>
 				<div className='pizza-block__selector'>
 					<ul>{renderPizzaTypes}</ul>

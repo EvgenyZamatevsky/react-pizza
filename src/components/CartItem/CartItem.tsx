@@ -4,7 +4,7 @@ import { addItemToCart, minusCartItem, removeItemFromCart } from 'redux/slices/c
 import { ReturnComponentType } from 'types'
 
 export type CartItemPropsType = {
-	id: number
+	id: string
 	title: string
 	type: string | number
 	price: number
