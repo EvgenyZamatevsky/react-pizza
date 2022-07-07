@@ -21,8 +21,8 @@ export const Cart: FC<CartPropsType> = (): ReturnComponentType => {
 
 	const totalCount = cartItems.reduce((acc, item) => acc + item.count, 0)
 
-	const renderCartItems = cartItems.map(({ id, title, price, count, imageUrl, type, size }) => {
-		return <CartItem key={id} id={id} title={title} price={price} count={count} imageUrl={imageUrl} type={type} size={size} />
+	const renderCartItems = cartItems.map((cartItem) => {
+		return <CartItem key={cartItem.id} cartItem={cartItem} />
 	})
 
 	const onClearCartItemsClick = (): void => {

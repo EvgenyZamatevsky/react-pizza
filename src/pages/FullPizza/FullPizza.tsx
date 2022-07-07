@@ -2,22 +2,19 @@ import React, { FC, useEffect } from 'react'
 import { Path } from 'enums'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { ReturnComponentType } from 'types'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { getPizzaItem } from 'redux/slices/pizzasSlice'
 import { selectPizzaItem } from 'redux/selectors/pizzas'
+import { useTypedDispatch } from 'hooks/useTypedDispatch'
 
-export type FullPizzaPropsType = {
+export const FullPizza: FC = (): ReturnComponentType => {
 
-}
-
-export const FullPizza: FC<FullPizzaPropsType> = (): ReturnComponentType => {
-
-	const dispatch = useDispatch()
-
-	const pizzaItem = useSelector(selectPizzaItem)
+	const dispatch = useTypedDispatch()
 
 	const { pizzaId } = useParams()
 	const navigate = useNavigate()
+
+	const pizzaItem = useSelector(selectPizzaItem)
 
 	useEffect(() => {
 		//@ts-ignore

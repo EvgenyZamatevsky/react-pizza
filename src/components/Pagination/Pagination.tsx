@@ -10,9 +10,7 @@ export type PaginationPropsType = {
 
 export const Pagination: FC<PaginationPropsType> = memo(({ page, handlePageChange }): ReturnComponentType => {
 
-	const onPageChange = (e: { selected: number }): void => {
-		handlePageChange(e.selected + 1)
-	}
+	const onPageChange = (e: { selected: number }): void => handlePageChange(e.selected + 1)
 
 	return (
 		<ReactPaginate

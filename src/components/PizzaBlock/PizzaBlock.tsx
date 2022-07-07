@@ -4,8 +4,6 @@ import { ReturnComponentType } from 'types'
 import { useDispatch, useSelector } from 'react-redux'
 import { addItemToCart } from 'redux/slices/cartSlice'
 import { selectCartItem } from 'redux/selectors/cart'
-import { Link } from 'react-router-dom'
-import { Path } from 'enums'
 
 export type PizzaBlockPropsType = {
 	pizza: PizzasType

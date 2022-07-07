@@ -8,13 +8,13 @@ export type CategoriesPropsType = {
 	category: number
 }
 
+const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые']
+
 export const Categories: FC<CategoriesPropsType> = memo(({ category }): ReturnComponentType => {
 
 	const dispatch = useDispatch()
 
-	const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые']
-
-	const renderCategories = categories.map((c, index) => {
+	const renderCategories = categories.map((item, index) => {
 
 		const onSelectPizzaCategoryClick = (): void => {
 			dispatch(setCategory(index))
@@ -25,7 +25,7 @@ export const Categories: FC<CategoriesPropsType> = memo(({ category }): ReturnCo
 				key={index}
 				className={category === index ? 'active' : ''}
 				onClick={onSelectPizzaCategoryClick}>
-				{c}
+				{item}
 			</li>
 		)
 	})

@@ -1,19 +1,15 @@
 import React, { FC } from 'react'
 import { useDispatch } from 'react-redux'
-import { addItemToCart, minusCartItem, removeItemFromCart } from 'redux/slices/cartSlice'
+import { addItemToCart, CartItemsType, minusCartItem, removeItemFromCart } from 'redux/slices/cartSlice'
 import { ReturnComponentType } from 'types'
 
 export type CartItemPropsType = {
-	id: string
-	title: string
-	type: string | number
-	price: number
-	count: number
-	imageUrl: string
-	size: number
+	cartItem: CartItemsType
 }
 
-export const CartItem: FC<CartItemPropsType> = ({ id, title, type, price, count, imageUrl, size }): ReturnComponentType => {
+export const CartItem: FC<CartItemPropsType> = ({ cartItem }): ReturnComponentType => {
+
+	const { count, id, imageUrl, price, size, title, type } = cartItem
 
 	const dispatch = useDispatch()
 

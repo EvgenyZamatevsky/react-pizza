@@ -1,4 +1,4 @@
-import { ThunkDispatch } from 'redux-thunk'
-//import { AppActionsType, RootReducerType } from 'redux/store'
+import { ThunkDispatch } from '@reduxjs/toolkit'
+import { AppActionsType, RootReducerType } from 'redux/store'
 
-//export type DispatchType = ThunkDispatch<RootReducerType, unknown, AppActionsType>
+export type DispatchType = ThunkDispatch<RootReducerType, unknown, AppActionsType>

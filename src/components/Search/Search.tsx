@@ -6,11 +6,7 @@ import { setSearchValue } from 'redux/slices/filterSlice'
 import { ReturnComponentType } from 'types'
 import style from './Search.module.scss'
 
-export type SearchPropsType = {
-
-}
-
-export const Search: FC<SearchPropsType> = (): ReturnComponentType => {
+export const Search: FC = (): ReturnComponentType => {
 
 	const dispatch = useDispatch()
 
@@ -18,7 +14,7 @@ export const Search: FC<SearchPropsType> = (): ReturnComponentType => {
 
 	const [value, setValue] = useState(EMPTY_STRING)
 
-	const updateSearchValue = useCallback(debounce((value): void => {
+	const updateSearchValue = useCallback(debounce((value: string): void => {
 		dispatch(setSearchValue(value))
 	}, 250), [])
 

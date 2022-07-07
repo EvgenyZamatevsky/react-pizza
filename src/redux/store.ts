@@ -1,8 +1,8 @@
 import { combineReducers, configureStore, ThunkAction } from '@reduxjs/toolkit'
+//import thunkMiddleware from 'redux-thunk'
 import cartSlice from './slices/cartSlice'
 import filterSlice from './slices/filterSlice'
 import pizzasSlice from './slices/pizzasSlice'
-
 
 export const rootReducer = combineReducers({
 	filter: filterSlice,
@@ -11,7 +11,8 @@ export const rootReducer = combineReducers({
 })
 
 export const store = configureStore({
-	reducer: rootReducer
+	reducer: rootReducer,
+	//middleware: getDefaultMiddleware => getDefaultMiddleware().prepend(thunkMiddleware)
 })
 
 // types
