@@ -1,6 +1,6 @@
 import { useTypedDispatch } from 'hooks/useTypedDispatch'
 import React, { FC } from 'react'
-import { addItemToCart, CartItemsType, minusCartItem, removeItemFromCart } from 'redux/slices/cartSlice'
+import { CartItemsType, addItemToCart, minusCartItem, removeItemFromCart } from 'redux/cart/slice'
 import { ReturnComponentType } from 'types'
 
 export type CartItemPropsType = {

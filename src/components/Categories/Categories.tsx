@@ -1,7 +1,7 @@
 import { useTypedDispatch } from 'hooks/useTypedDispatch'
 import React, { FC } from 'react'
 import { memo } from 'react'
-import { setCategory } from 'redux/slices/filterSlice'
+import { setCategory } from 'redux/filter/slice'
 import { ReturnComponentType } from 'types'
 
 export type CategoriesPropsType = {

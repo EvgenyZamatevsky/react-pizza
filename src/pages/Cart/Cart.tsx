@@ -5,9 +5,9 @@ import { Path } from 'enums'
 import { useTypedDispatch } from 'hooks/useTypedDispatch'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { selectCartItems, selectTotalPrice } from 'redux/selectors/cart'
-import { clearCartItems } from 'redux/slices/cartSlice'
 import { ReturnComponentType } from 'types'
+import { selectCartItems, selectTotalPrice } from 'redux/cart/selectors'
+import { clearCartItems } from 'redux/cart/slice'
 
 export type CartPropsType = {
 

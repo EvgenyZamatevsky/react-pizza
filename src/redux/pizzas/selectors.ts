@@ -1,5 +1,5 @@
-import { PizzasType } from 'api/pizzas/types'
-import { RootStateType } from 'redux/store'
+import { PizzasType } from "api/pizzas/types"
+import { RootStateType } from "redux/store"
 
 export const selectPizzas = (state: RootStateType): PizzasType[] => state.pizzas.pizzas
 

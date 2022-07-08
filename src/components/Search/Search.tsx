@@ -2,7 +2,7 @@ import { EMPTY_STRING } from 'constants/base'
 import { useTypedDispatch } from 'hooks/useTypedDispatch'
 import debounce from 'lodash.debounce'
 import React, { ChangeEvent, FC, useCallback, useRef, useState } from 'react'
-import { setSearchValue } from 'redux/slices/filterSlice'
+import { setSearchValue } from 'redux/filter/slice'
 import { ReturnComponentType } from 'types'
 import style from './Search.module.scss'
 

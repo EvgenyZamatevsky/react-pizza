@@ -3,9 +3,9 @@ import { Path } from 'enums'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { ReturnComponentType } from 'types'
 import { useSelector } from 'react-redux'
-import { getPizzaItem } from 'redux/slices/pizzasSlice'
-import { selectPizzaItem } from 'redux/selectors/pizzas'
 import { useTypedDispatch } from 'hooks/useTypedDispatch'
+import { selectPizzaItem } from 'redux/pizzas/selectors'
+import { getPizzaItem } from 'redux/pizzas/asyncActions'
 
 export const FullPizza: FC = (): ReturnComponentType => {
 

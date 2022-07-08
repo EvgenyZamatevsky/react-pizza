@@ -1,11 +1,11 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect, useRef } from 'react'
 import { ReturnComponentType } from 'types'
 import pizzaLogo from 'assets/img/pizza-logo.svg'
 import { Link, useLocation } from 'react-router-dom'
 import { Path } from 'enums'
 import { Search } from 'components/Search'
 import { useSelector } from 'react-redux'
-import { selectCartItems, selectTotalPrice } from 'redux/selectors/cart'
+import { selectTotalPrice, selectCartItems } from 'redux/cart/selectors'
 
 export type HeaderPropsType = {
 }
@@ -14,10 +14,24 @@ export const Header: FC<HeaderPropsType> = (): ReturnComponentType => {
 
 	const { pathname } = useLocation()
 
+	const isMounted = useRef(false)
+
 	const totalPrice = useSelector(selectTotalPrice)
 	const cartItems = useSelector(selectCartItems)
 
 	const totalCount = cartItems.reduce((acc, item) => acc + item.count, 0)
+
+	useEffect(() => {
+		if (isMounted.current) {
+			const json = JSON.stringify(cartItems)
+			localStorage.setItem('cart', json)
+		}
+
+		isMounted.current = true
+		//	console.log(JSON.parse(localStorage.getItem('cart') as string))
+	}, [cartItems])
+
+
 
 	return (
 		<div className='header'>

@@ -1,8 +1,8 @@
 import { combineReducers, configureStore, ThunkAction } from '@reduxjs/toolkit'
+import filterSlice from './filter/slice'
+import cartSlice from './cart/slice'
+import pizzasSlice from './pizzas/slice'
 //import thunkMiddleware from 'redux-thunk'
-import cartSlice from './slices/cartSlice'
-import filterSlice from './slices/filterSlice'
-import pizzasSlice from './slices/pizzasSlice'
 
 export const rootReducer = combineReducers({
 	filter: filterSlice,

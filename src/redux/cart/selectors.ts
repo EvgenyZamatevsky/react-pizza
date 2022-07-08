@@ -1,5 +1,5 @@
-import { CartItemsType } from 'redux/slices/cartSlice'
-import { RootStateType } from 'redux/store'
+import { RootStateType } from "redux/store"
+import { CartItemsType } from "./slice"
 
 export const selectTotalPrice = (state: RootStateType): number => state.cart.totalPrice
 

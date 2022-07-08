@@ -1,5 +1,5 @@
-import { SortType } from 'redux/slices/filterSlice'
 import { RootStateType } from 'redux/store'
+import { SortType } from './slice'
 
 export const selectCategory = (state: RootStateType): number => state.filter.category
 

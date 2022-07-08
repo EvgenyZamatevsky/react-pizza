@@ -3,13 +3,12 @@ import { PizzaBlock, Categories, Sort, Skeleton, Pagination } from 'components'
 import { ReturnComponentType } from 'types'
 import { useCallback } from 'react'
 import { useSelector } from 'react-redux'
-import { selectCategory, selectSearchValue, selectSort } from 'redux/selectors/filter'
-import { selectPage } from 'redux/selectors/filter'
-import { setPage } from 'redux/slices/filterSlice'
-import { getPizzas, LoadingStatusEnum } from 'redux/slices/pizzasSlice'
-import { selectLoadingStatus, selectPizzas } from 'redux/selectors/pizzas'
-import { Link } from 'react-router-dom'
 import { useTypedDispatch } from 'hooks/useTypedDispatch'
+import { selectCategory, selectSort, selectPage, selectSearchValue } from 'redux/filter/selectors'
+import { setPage } from 'redux/filter/slice'
+import { selectPizzas, selectLoadingStatus } from 'redux/pizzas/selectors'
+import { LoadingStatusEnum } from 'redux/pizzas/slice'
+import { getPizzas } from 'redux/pizzas/asyncActions'
 
 export type HomePropsType = {
 

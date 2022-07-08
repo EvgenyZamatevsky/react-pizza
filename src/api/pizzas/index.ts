@@ -1,5 +1,4 @@
 import { instance } from 'api/config'
-import { SortPropertyEnum } from 'redux/slices/filterSlice'
 import { PizzasType } from './types'
 
 export const PIZZAS = {

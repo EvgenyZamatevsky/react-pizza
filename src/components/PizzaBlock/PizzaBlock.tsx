@@ -2,10 +2,10 @@ import React, { FC, memo, useState } from 'react'
 import { PizzasType } from 'api/pizzas/types'
 import { ReturnComponentType } from 'types'
 import { useSelector } from 'react-redux'
-import { addItemToCart, CartItemsType } from 'redux/slices/cartSlice'
-import { selectCartItem } from 'redux/selectors/cart'
 import { useTypedDispatch } from 'hooks/useTypedDispatch'
 import { Link } from 'react-router-dom'
+import { selectCartItem } from 'redux/cart/selectors'
+import { CartItemsType, addItemToCart } from 'redux/cart/slice'
 
 export type PizzaBlockPropsType = {
 	pizza: PizzasType
