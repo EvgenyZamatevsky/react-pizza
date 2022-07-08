@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { ReturnComponentType } from 'types'
 import styles from './NotFoundBlock.module.scss'
 
-export const NotFound: FC = (): ReturnComponentType => {
+const NotFound: FC = (): ReturnComponentType => {
 	return (
 		<div className={styles.root}>
 			<h1>
@@ -16,3 +16,5 @@ export const NotFound: FC = (): ReturnComponentType => {
 		</div>
 	)
 }
+
+export default NotFound

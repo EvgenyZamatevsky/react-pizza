@@ -7,7 +7,7 @@ import { useTypedDispatch } from 'hooks/useTypedDispatch'
 import { selectPizzaItem } from 'redux/pizzas/selectors'
 import { getPizzaItem } from 'redux/pizzas/asyncActions'
 
-export const FullPizza: FC = (): ReturnComponentType => {
+const FullPizza: FC = (): ReturnComponentType => {
 
 	const dispatch = useTypedDispatch()
 
@@ -37,3 +37,5 @@ export const FullPizza: FC = (): ReturnComponentType => {
 		</div>
 	)
 }
+
+export default FullPizza

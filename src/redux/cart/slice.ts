@@ -30,6 +30,8 @@ export const cartSlice = createSlice({
 			if (cartItem) {
 				cartItem.count--
 			}
+
+			state.totalPrice = calcTotalPrice(state.cartItems);
 		},
 		addItemToCart(state, action: PayloadAction<CartItemsType>) {
 			const cartItem = state.cartItems.find(item => item.id === action.payload.id)
@@ -44,9 +46,10 @@ export const cartSlice = createSlice({
 		},
 		removeItemFromCart(state, action: PayloadAction<string>) {
 			state.cartItems = state.cartItems.filter(item => item.id !== action.payload)
+			state.totalPrice = calcTotalPrice(state.cartItems)
 		},
-		clearCartItems(state, action: PayloadAction<[]>) {
-			state.cartItems = action.payload
+		clearCartItems(state) {
+			state.cartItems = []
 			state.totalPrice = 0
 		},
 	}

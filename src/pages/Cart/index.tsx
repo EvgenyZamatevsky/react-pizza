@@ -13,7 +13,7 @@ export type CartPropsType = {
 
 }
 
-export const Cart: FC<CartPropsType> = (): ReturnComponentType => {
+const Cart: FC<CartPropsType> = (): ReturnComponentType => {
 
 	const dispatch = useTypedDispatch()
 
@@ -28,7 +28,7 @@ export const Cart: FC<CartPropsType> = (): ReturnComponentType => {
 
 	const onClearCartItemsClick = (): void => {
 		if (window.confirm('Ты действительно хочешь очистить корзину?')) {
-			dispatch(clearCartItems([]))
+			dispatch(clearCartItems())
 		}
 	}
 
@@ -81,3 +81,5 @@ export const Cart: FC<CartPropsType> = (): ReturnComponentType => {
 		</div>
 	)
 }
+
+export default Cart
