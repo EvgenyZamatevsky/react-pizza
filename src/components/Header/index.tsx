@@ -7,10 +7,7 @@ import { Search } from 'components/Search'
 import { useSelector } from 'react-redux'
 import { selectTotalPrice, selectCartItems } from 'redux/cart/selectors'
 
-export type HeaderPropsType = {
-}
-
-export const Header: FC<HeaderPropsType> = (): ReturnComponentType => {
+export const Header: FC = (): ReturnComponentType => {
 
 	const { pathname } = useLocation()
 
@@ -28,15 +25,12 @@ export const Header: FC<HeaderPropsType> = (): ReturnComponentType => {
 		}
 
 		isMounted.current = true
-		//	console.log(JSON.parse(localStorage.getItem('cart') as string))
 	}, [cartItems])
-
-
 
 	return (
 		<div className='header'>
 			<div className='container'>
-				<Link to={Path.home}>
+				<Link to={Path.HOME}>
 					<div className='header__logo'>
 						<img width='38' src={pizzaLogo} alt='Pizza logo' />
 						<div>
@@ -48,7 +42,7 @@ export const Header: FC<HeaderPropsType> = (): ReturnComponentType => {
 				{pathname !== '/cart' && <Search />}
 				<div className='header__cart'>
 					{pathname !== '/cart' &&
-						<Link to={Path.cart} className='button button--cart'>
+						<Link to={Path.CART} className='button button--cart'>
 							<span>{totalPrice} ₽</span>
 							<div className='button__delimiter'></div>
 							<svg
@@ -81,8 +75,7 @@ export const Header: FC<HeaderPropsType> = (): ReturnComponentType => {
 								/>
 							</svg>
 							<span>{totalCount}</span>
-						</Link>
-					}
+						</Link>}
 				</div>
 			</div>
 		</div>

@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import { selectCartItem } from 'redux/cart/selectors'
 import { CartItemsType, addItemToCart } from 'redux/cart/slice'
 
-export type PizzaBlockPropsType = {
+type PizzaBlockPropsType = {
 	pizza: PizzasType
 }
 
@@ -15,7 +15,7 @@ const typeNames = ['тонкое', 'традиционное']
 
 export const PizzaBlock: FC<PizzaBlockPropsType> = memo(({ pizza }): ReturnComponentType => {
 
-	const { category, id, imageUrl, price, rating, sizes, title, types } = pizza
+	const { id, imageUrl, price, sizes, title, types } = pizza
 
 	const dispatch = useTypedDispatch()
 

@@ -16,7 +16,7 @@ export const CartEmpty: FC = (): ReturnComponentType => {
 				Для того, чтобы заказать пиццу, перейди на главную страницу.
 			</p>
 			<img src={cartEmptyImg} alt='Empty cart' />
-			<Link to={Path.home} className='button button--black'>
+			<Link to={Path.HOME} className='button button--black'>
 				<span>Вернуться назад</span>
 			</Link>
 		</div>

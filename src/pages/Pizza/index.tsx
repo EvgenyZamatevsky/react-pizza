@@ -7,7 +7,7 @@ import { useTypedDispatch } from 'hooks/useTypedDispatch'
 import { selectPizzaItem } from 'redux/pizzas/selectors'
 import { getPizzaItem } from 'redux/pizzas/asyncActions'
 
-const FullPizza: FC = (): ReturnComponentType => {
+const Pizza: FC = (): ReturnComponentType => {
 
 	const dispatch = useTypedDispatch()
 
@@ -21,7 +21,7 @@ const FullPizza: FC = (): ReturnComponentType => {
 	}, [])
 
 	if (!pizzaItem) {
-		navigate(Path.home)
+		navigate(Path.HOME)
 	}
 
 	return (
@@ -29,7 +29,7 @@ const FullPizza: FC = (): ReturnComponentType => {
 			<img src={pizzaItem.imageUrl} />
 			<h2>{pizzaItem.title}</h2>
 			<h4>{pizzaItem.price} ₽</h4>
-			<Link to={Path.home}>
+			<Link to={Path.HOME}>
 				<button className='button button--outline button--add'>
 					<span>Назад</span>
 				</button>
@@ -38,4 +38,4 @@ const FullPizza: FC = (): ReturnComponentType => {
 	)
 }
 
-export default FullPizza
+export default Pizza

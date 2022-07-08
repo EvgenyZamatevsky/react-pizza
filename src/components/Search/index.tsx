@@ -1,4 +1,3 @@
-import { EMPTY_STRING } from 'constants/base'
 import { useTypedDispatch } from 'hooks/useTypedDispatch'
 import debounce from 'lodash.debounce'
 import React, { ChangeEvent, FC, useCallback, useRef, useState } from 'react'
@@ -12,7 +11,7 @@ export const Search: FC = (): ReturnComponentType => {
 
 	const inputRef = useRef<HTMLInputElement>(null)
 
-	const [value, setValue] = useState(EMPTY_STRING)
+	const [value, setValue] = useState('')
 
 	const updateSearchValue = useCallback(debounce((value: string): void => {
 		dispatch(setSearchValue(value))
@@ -26,8 +25,8 @@ export const Search: FC = (): ReturnComponentType => {
 	const addFocus = (): void => inputRef.current?.focus()
 
 	const onResetSearchValueClick = (): void => {
-		setValue(EMPTY_STRING)
-		dispatch(setSearchValue(EMPTY_STRING))
+		setValue('')
+		dispatch(setSearchValue(''))
 		addFocus()
 	}
 

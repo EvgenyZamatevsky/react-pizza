@@ -4,7 +4,7 @@ import { memo } from 'react'
 import { setCategory } from 'redux/filter/slice'
 import { ReturnComponentType } from 'types'
 
-export type CategoriesPropsType = {
+type CategoriesPropsType = {
 	category: number
 }
 

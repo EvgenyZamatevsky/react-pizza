@@ -3,7 +3,6 @@ import { PizzaBlock, Categories, Sort, Skeleton, Pagination } from 'components'
 import { ReturnComponentType } from 'types'
 import { useCallback } from 'react'
 import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
 import { useTypedDispatch } from 'hooks/useTypedDispatch'
 import { selectCategory, selectSort, selectPage, selectSearchValue } from 'redux/filter/selectors'
 import { setPage } from 'redux/filter/slice'
@@ -11,13 +10,9 @@ import { selectPizzas, selectLoadingStatus } from 'redux/pizzas/selectors'
 import { LoadingStatusEnum } from 'redux/pizzas/slice'
 import { getPizzas } from 'redux/pizzas/asyncActions'
 
-export type HomePropsType = {
-
-}
-
 const FOUR_FAKE_ITEMS = 4
 
-export const Home: FC<HomePropsType> = (): ReturnComponentType => {
+export const Home: FC = (): ReturnComponentType => {
 
 	const dispatch = useTypedDispatch()
 
@@ -43,7 +38,7 @@ export const Home: FC<HomePropsType> = (): ReturnComponentType => {
 
 		scrollPageUp()
 	}, [category, sort.sortProperty, searchValue, page])
-	//console.log(category)
+
 	return (
 		<div className='container'>
 			<div className='content__top'>

@@ -3,7 +3,7 @@ import React, { FC, memo, useEffect, useRef, useState } from 'react'
 import { SortType, SortPropertyEnum, setSort } from 'redux/filter/slice'
 import { ReturnComponentType } from 'types'
 
-export type SortPropsType = {
+type SortPropsType = {
 	sort: SortType
 }
 

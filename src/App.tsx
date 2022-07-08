@@ -7,25 +7,25 @@ import { Home } from 'pages/Home'
 import 'scss/app.scss'
 
 const Cart = lazy(() => import(/* webpackChunkName: "Cart" */ 'pages/Cart'))
-const FullPizza = lazy(() => import(/* webpackChunkName: "FullPizza" */'pages/FullPizza'))
+const Pizza = lazy(() => import(/* webpackChunkName: "Pizza" */'pages/Pizza'))
 const NotFound = lazy(() => import(/* webpackChunkName: "NotFound" */'pages/NotFound'))
 
 export const App: FC = (): ReturnComponentType => {
   return (
     <Routes >
-      <Route path={Path.home} element={<Layout />}>
+      <Route path={Path.HOME} element={<Layout />}>
         <Route index element={<Home />} />
-        <Route path={Path.cart} element={
+        <Route path={Path.CART} element={
           <Suspense fallback={<div>Идет загрузка корзины...</div>}>
             <Cart />
           </Suspense>
         } />
-        <Route path={Path.notFound} element={<Suspense fallback={<div>Идет загрузка...</div>}>
+        <Route path={Path.NOT_FOUND} element={<Suspense fallback={<div>Идет загрузка...</div>}>
           <NotFound />
         </Suspense>
         } />
-        <Route path={Path.fullPizza} element={<Suspense fallback={<div>Идет загрузка...</div>}>
-          <FullPizza />
+        <Route path={Path.PIZZA} element={<Suspense fallback={<div>Идет загрузка...</div>}>
+          <Pizza />
         </Suspense>
         } />
       </Route>

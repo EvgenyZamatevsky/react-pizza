@@ -1,1 +1,1 @@
-export { AUTH } from './auth'
+export { PIZZAS } from './pizzas'

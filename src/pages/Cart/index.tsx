@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { CartItem } from 'components'
-import { CartEmpty } from 'components/CartEmpty/CartEmpty'
+import { CartEmpty } from 'components/CartEmpty'
 import { Path } from 'enums'
 import { useTypedDispatch } from 'hooks/useTypedDispatch'
 import { useSelector } from 'react-redux'
@@ -9,11 +9,7 @@ import { ReturnComponentType } from 'types'
 import { selectCartItems, selectTotalPrice } from 'redux/cart/selectors'
 import { clearCartItems } from 'redux/cart/slice'
 
-export type CartPropsType = {
-
-}
-
-const Cart: FC<CartPropsType> = (): ReturnComponentType => {
+const Cart: FC = (): ReturnComponentType => {
 
 	const dispatch = useTypedDispatch()
 
@@ -66,7 +62,7 @@ const Cart: FC<CartPropsType> = (): ReturnComponentType => {
 						<span> Сумма заказа: <b>{totalPrice} ₽</b> </span>
 					</div>
 					<div className='cart__bottom-buttons'>
-						<Link to={Path.home} className='button button--outline button--add go-back-btn'>
+						<Link to={Path.HOME} className='button button--outline button--add go-back-btn'>
 							<svg width='8' height='14' viewBox='0 0 8 14' fill='none' xmlns='http://www.w3.org/2000/svg'>
 								<path d='M7 13L1 6.93015L6.86175 1' stroke='#D3D3D3' strokeWidth='1.5' strokeLinecap='round' strokeLinejoin='round' />
 							</svg>
