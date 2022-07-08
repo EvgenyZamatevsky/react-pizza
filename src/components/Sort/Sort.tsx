@@ -1,3 +1,4 @@
+import { useWhyDidYouUpdate } from 'ahooks'
 import { useTypedDispatch } from 'hooks/useTypedDispatch'
 import React, { FC, memo, useEffect, useRef, useState } from 'react'
 import { setSort, SortPropertyEnum, SortType } from 'redux/slices/filterSlice'
@@ -17,6 +18,7 @@ const pizzaSortingList: SortType[] = [
 ]
 
 export const Sort: FC<SortPropsType> = memo(({ sort }): ReturnComponentType => {
+	useWhyDidYouUpdate('Sort', { sort })
 
 	const dispatch = useTypedDispatch()
 

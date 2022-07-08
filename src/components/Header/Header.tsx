@@ -31,7 +31,7 @@ export const Header: FC<HeaderPropsType> = (): ReturnComponentType => {
 						</div>
 					</div>
 				</Link>
-				<Search />
+				{pathname !== '/cart' && <Search />}
 				<div className='header__cart'>
 					{pathname !== '/cart' &&
 						<Link to={Path.cart} className='button button--cart'>

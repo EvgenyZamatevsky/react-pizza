@@ -39,17 +39,11 @@ export const Home: FC<HomePropsType> = (): ReturnComponentType => {
 	const scrollPageUp = (): void => window.scrollTo(0, 0)
 
 	useEffect(() => {
-		dispatch(getPizzas({
-			category,
-			sortProperty: sort.sortProperty,
-			order: sort.sortProperty,
-			searchValue,
-			page
-		}))
+		dispatch(getPizzas({ category, sortProperty: sort.sortProperty, order: sort.sortProperty, searchValue, page }))
 
 		scrollPageUp()
 	}, [category, sort.sortProperty, searchValue, page])
-
+	//console.log(category)
 	return (
 		<div className='container'>
 			<div className='content__top'>
