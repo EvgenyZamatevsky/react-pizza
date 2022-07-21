@@ -26,17 +26,19 @@ export const Home: FC = (): ReturnComponentType => {
 	const renderFakeItems = fakeItems.map((_, index) => <Skeleton key={index} />)
 	const renderPizzas = pizzas.map(pizza => <PizzaBlock key={pizza.id} pizza={pizza} />)
 
-	const handlePageChange = useCallback((page: number): void => {
-		dispatch(setPage(page))
-	}, [])
-
 	const scrollPageUp = (): void => window.scrollTo(0, 0)
 
 	useEffect(() => {
 		dispatch(getPizzas({ category, sortProperty: sort.sortProperty, order: sort.sortProperty, searchValue, page }))
-
-		scrollPageUp()
 	}, [category, sort.sortProperty, searchValue, page])
+
+	useEffect(() => {
+		scrollPageUp()
+	}, [])
+
+	const handlePageChange = useCallback((page: number): void => {
+		dispatch(setPage(page))
+	}, [])
 
 	return (
 		<div className='container'>

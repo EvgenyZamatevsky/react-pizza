@@ -23,9 +23,9 @@ export const Sort: FC<SortPropsType> = memo(({ sort }): ReturnComponentType => {
 
 	const dispatch = useAppDispatch()
 
-	const sortRef = useRef<HTMLDivElement>(null)
-
 	const [isVisiblePopup, setIsVisiblePopup] = useState<boolean>(false)
+
+	const sortRef = useRef<HTMLDivElement>(null)
 
 	const renderPizzaSorting = pizzaSortingList.map((pizzaSortList, index) => {
 

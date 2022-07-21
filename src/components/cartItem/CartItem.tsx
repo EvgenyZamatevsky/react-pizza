@@ -1,7 +1,6 @@
 import React, { FC, memo } from 'react'
-import { addItemToCart, minusCartItem, removeItemFromCart } from 'store/slices/cart'
+import { minusCartItem, plusCartItem, removeItemFromCart } from 'store/slices/cart'
 import { ReturnComponentType } from 'types'
-import { CartItemsType } from 'store/slices/cart/types'
 import { useAppDispatch } from 'store/hooks'
 
 type CartItemPropsType = {
@@ -19,7 +18,7 @@ export const CartItem: FC<CartItemPropsType> = memo(({ count, id, imageUrl, pric
 	const dispatch = useAppDispatch()
 
 	const onPlusClick = (): void => {
-		dispatch(addItemToCart({ id } as CartItemsType))
+		dispatch(plusCartItem(id))
 	}
 
 	const onMinusClick = (): void => {

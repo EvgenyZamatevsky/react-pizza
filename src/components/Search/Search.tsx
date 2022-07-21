@@ -12,7 +12,7 @@ export const Search: FC = (): ReturnComponentType => {
 
 	const inputRef = useRef<HTMLInputElement>(null)
 
-	const [value, setValue] = useState(EMPTY_STRING)
+	const [value, setValue] = useState<string>(EMPTY_STRING)
 
 	const updateSearchValue = useCallback(debounce((value: string): void => {
 		dispatch(setSearchValue(value))

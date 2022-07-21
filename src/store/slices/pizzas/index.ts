@@ -13,11 +13,7 @@ const initialState: PizzasSliceInitialStateType = {
 const pizzasSlice = createSlice({
 	name: 'pizzas',
 	initialState,
-	reducers: {
-		// setPizzas(state, action) {
-		// 	state.pizzas = action.payload
-		// }
-	},
+	reducers: {},
 	extraReducers(builder) {
 		builder
 			.addCase(getPizzas.pending, (state) => {
@@ -37,7 +33,5 @@ const pizzasSlice = createSlice({
 			})
 	},
 })
-
-export const { } = pizzasSlice.actions
 
 export default pizzasSlice.reducer

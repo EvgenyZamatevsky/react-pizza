@@ -6,10 +6,6 @@ export const setDataToLocalStorage = (localStorageName: string, stringData: stri
 	localStorage.setItem(localStorageName, stringData)
 }
 
-// export const getParseLocalStorageData = (localStorageName: string): any[] => {
-// 	return JSON.parse(localStorage.getItem(localStorageName) || '[]')
-// }
-
 export const getCartFromLocalStorage = () => {
 	const data = localStorage.getItem(LocalStorageKey.DATA)
 	const cartItems = data ? JSON.parse(data) : []
