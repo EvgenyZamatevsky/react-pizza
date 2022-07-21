@@ -1,21 +1,10 @@
-export type PizzasType = {
+export type PizzaType = {
 	category: number
 	id: string
 	imageUrl: string
 	price: number
 	rating: number
-	sizes: PizzaSizes[]
+	sizes: number[]
 	title: string
-	types: PizzaTypes[]
-}
-
-export enum PizzaSizes {
-	smallPizza = 26,
-	mediumPizza = 30,
-	bigPizza = 40
-}
-
-export enum PizzaTypes {
-	thinDough = 0,
-	traditionalDough = 1,
+	types: number[]
 }
