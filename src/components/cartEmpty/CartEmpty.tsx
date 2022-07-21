@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { ReturnComponentType } from 'types'
 import { Link } from 'react-router-dom'
-import cartEmptyImg from 'assets/img/empty-cart.png'
+import cartEmptyImg from 'assets/images/empty-cart.png'
 import { Path } from 'enums'
 
 export const CartEmpty: FC = (): ReturnComponentType => {

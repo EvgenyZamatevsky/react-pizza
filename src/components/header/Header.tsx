@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useRef } from 'react'
 import { ReturnComponentType } from 'types'
-import pizzaLogo from 'assets/img/pizza-logo.svg'
+import pizzaLogo from 'assets/images/pizza-logo.svg'
 import { Link, useLocation } from 'react-router-dom'
 import { LocalStorageKey, Path } from 'enums'
 import { Search } from 'components/search/Search'
