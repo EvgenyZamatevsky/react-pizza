@@ -10,25 +10,27 @@ export const Search: FC = (): ReturnComponentType => {
 
 	const dispatch = useAppDispatch()
 
-	const inputRef = useRef<HTMLInputElement>(null)
-
 	const [value, setValue] = useState<string>(EMPTY_STRING)
+
+	const inputRef = useRef<HTMLInputElement>(null)
 
 	const updateSearchValue = useCallback(debounce((value: string): void => {
 		dispatch(setSearchValue(value))
 	}, 250), [])
 
-	const onInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
-		setValue(e.currentTarget.value)
-		updateSearchValue(e.currentTarget.value)
+	const onInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
+		const currentValue = event.currentTarget.value
+
+		setValue(currentValue)
+		updateSearchValue(currentValue)
 	}
 
-	const addFocus = (): void => inputRef.current?.focus()
+	const showInputFocus = (): void => inputRef.current?.focus()
 
 	const onResetSearchValueClick = (): void => {
 		setValue(EMPTY_STRING)
 		dispatch(setSearchValue(EMPTY_STRING))
-		addFocus()
+		showInputFocus()
 	}
 
 	return (
